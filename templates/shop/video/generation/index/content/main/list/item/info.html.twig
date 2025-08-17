@@ -1,0 +1,55 @@
+{% import '@SyliusShop/shared/buttons.html.twig' as buttons %}
+{% import 'shop/video/generation/macro/status.html.twig' as videoStatus %}
+{% import 'shop/video/generation/macro/buttons.html.twig' as videoButtons %}
+
+{% set generation = hookable_metadata.context.generation %}
+
+<!-- Generation Info -->
+<div class="flex-grow-1">
+    <!-- Preview Section (always visible) -->
+    <div class="d-flex align-items-center justify-content-between">
+        <div class="d-flex align-items-center">
+            {% if generation.status == 'completed' and generation.videoUrl %}
+                <a href="{{ generation.videoUrl }}" download class="btn btn-xs btn-link text-muted p-0 d-flex align-items-center">
+                    {{ ux_icon('tabler:download', { class: 'icon icon-xs' }) }}
+                </a>
+            {% endif %}
+        </div>
+        
+        <!-- Expand/Collapse Button -->
+        <button class="btn btn-xs btn-link text-muted p-0 d-flex align-items-center" 
+                type="button" 
+                data-bs-toggle="collapse" 
+                data-bs-target="#details-{{ generation.id }}" 
+                aria-expanded="false">
+            {{ ux_icon('tabler:dots-vertical', { class: 'icon icon-xs' }) }}
+        </button>
+    </div>
+
+    <!-- Collapsible Details Section -->
+    <div class="collapse" id="details-{{ generation.id }}">
+        <div class="border-top mt-1 pt-2">
+            <p class="small text-muted mb-2 lh-base">
+                <small class="badge bg-light text-dark me-2">prompt</small>{{ generation.prompt }}
+            </p>
+            <div class="d-flex gap-1 justify-content-end">
+                {{ videoButtons.copy_to_clipboard(generation.prompt, 'app.ui.copy_prompt') }}
+                {{ videoButtons.delete_icon(
+                    path('app_shop_video_generation_delete', {id: generation.id}),
+                    'app.ui.delete',
+                    'tabler:x',
+                    generation.id
+                ) }}
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.collapse-icon[aria-expanded="true"] .icon {
+    transform: rotate(180deg);
+}
+.transition-transform {
+    transition: transform 0.2s ease;
+}
+</style>

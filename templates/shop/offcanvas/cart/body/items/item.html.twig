@@ -1,0 +1,30 @@
+{% import "@SyliusShop/shared/macro/money.html.twig" as money %}
+
+{% set item = hookable_metadata.context.item %}
+{% set variant = item.variant %}
+
+<tr>
+    <td>
+        {# Affichage avec image mais sans liens produit pour l'offcanvas #}
+        <div class="d-flex align-items-center gap-2">
+            <div class="flex-shrink-0" style="width: 3rem;">
+                <div class="bg-light rounded" style="aspect-ratio: 1;">
+                    {{ component('sylius_shop:main_image', {
+                        product: variant.hasImages ? variant : variant.product,
+                        class: "w-100 h-100 object-fit-cover rounded",
+                        filter: 'sylius_shop_product_small_thumbnail'
+                    }) }}
+                </div>
+            </div>
+            <div>
+                <strong>{{ item.variantName ?: item.productName }}</strong>
+                {# Masquer le code technique pour les tokens #}
+                {% if not (variant.code starts with 'token_packs-variant-') %}
+                    <br><small class="text-muted">{{ variant.code }}</small>
+                {% endif %}
+            </div>
+        </div>
+    </td>
+    <td>{{ item.quantity }}</td>
+    <td class="text-end">{{ money.convertAndFormat(item.unitPrice) }}</td>
+</tr>

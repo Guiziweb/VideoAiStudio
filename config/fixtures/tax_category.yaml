@@ -1,0 +1,14 @@
+sylius_fixtures:
+    suites:
+        ai_video_suite:
+            fixtures:
+                tax_category:
+                    name: 'tax_category'
+                    options:
+                        custom:
+                            digital_services:
+                                code: 'digital_services'
+                                name: 'Digital Services'
+                            tokens:
+                                code: 'tokens'
+                                name: 'Tokens'

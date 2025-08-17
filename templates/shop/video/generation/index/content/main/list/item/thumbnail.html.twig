@@ -1,0 +1,55 @@
+{% set generation = hookable_metadata.context.generation %}
+
+<!-- Video Thumbnail/Preview -->
+<div class="position-relative">
+    {% if generation.status == 'completed' and generation.videoUrl %}
+        <div class="ratio ratio-16x9">
+            <video controls class="object-fit-cover">
+                <source src="{{ generation.videoUrl }}" type="video/mp4">
+                {{ 'app.ui.video_not_supported'|trans }}
+            </video>
+        </div>
+        <div class="position-absolute top-0 end-0 m-2">
+            <span class="badge bg-success">
+                {{ ux_icon('tabler:check', { class: 'icon icon-xs me-1' }) }}
+                {{ 'app.ui.video_status.completed'|trans }}
+            </span>
+        </div>
+    {% elseif generation.status == 'processing' %}
+        <div class="ratio ratio-16x9 bg-dark"></div>
+        <div class="position-absolute top-0 end-0 m-2">
+            <span class="badge bg-primary">
+                <div class="spinner-border spinner-border-sm me-1" role="status" style="width: 0.75rem; height: 0.75rem;">
+                    <span class="visually-hidden">{{ 'app.ui.video_status.processing'|trans }}</span>
+                </div>
+                {{ 'app.ui.video_status.processing'|trans }}
+            </span>
+        </div>
+    {% elseif generation.status == 'pending' %}
+        <div class="ratio ratio-16x9 bg-dark"></div>
+        <div class="position-absolute top-0 end-0 m-2">
+            <span class="badge bg-warning">
+                <div class="spinner-border spinner-border-sm me-1" role="status" style="width: 0.75rem; height: 0.75rem;">
+                    <span class="visually-hidden">{{ 'app.ui.video_status.pending'|trans }}</span>
+                </div>
+                {{ 'app.ui.video_status.pending'|trans }}
+            </span>
+        </div>
+    {% elseif generation.status == 'failed' %}
+        <div class="ratio ratio-16x9 bg-dark"></div>
+        <div class="position-absolute top-0 end-0 m-2">
+            <span class="badge bg-danger">
+                {{ ux_icon('tabler:alert-circle', { class: 'icon icon-xs me-1' }) }}
+                {{ 'app.ui.video_status.failed'|trans }}
+            </span>
+        </div>
+    {% else %}
+        <div class="ratio ratio-16x9 bg-light d-flex align-items-center justify-content-center"></div>
+        <div class="position-absolute top-0 end-0 m-2">
+            <span class="badge bg-secondary">
+                {{ ux_icon('tabler:video', { class: 'icon icon-xs me-1' }) }}
+                {{ 'app.ui.video_text'|trans }}
+            </span>
+        </div>
+    {% endif %}
+</div>

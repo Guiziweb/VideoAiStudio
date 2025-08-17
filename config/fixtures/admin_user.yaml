@@ -1,0 +1,24 @@
+sylius_fixtures:
+    suites:
+        ai_video_suite:
+            fixtures:
+                admin_user:
+                    name: 'admin_user'
+                    options:
+                        custom:
+                            -   email: 'admin@aivideo.com'
+                                username: 'admin'
+                                password: 'root'
+                                enabled: true
+                                locale_code: 'en_US'
+                                first_name: 'Admin'
+                                last_name: 'AI Video'
+
+                            -   email: 'api@aivideo.com'
+                                username: 'api'
+                                password: 'api123'
+                                enabled: true
+                                locale_code: 'en_US'
+                                first_name: 'API'
+                                last_name: 'User'
+                                api: true

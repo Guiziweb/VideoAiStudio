@@ -1,0 +1,17 @@
+{% extends '@SyliusShop/shared/layout/base.html.twig' %}
+
+{% block title %}{{ 'app.ui.buy_tokens'|trans }} | {{ parent() }}{% endblock %}
+
+{% block content %}
+    <div class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-12 col-xl-10">
+                <div class="text-center mb-5">
+                    <h1 class="h2 fw-bold">{{ 'app.ui.buy_tokens'|trans }}</h1>
+                    <p class="text-muted">{{ 'app.ui.choose_token_pack'|trans }}</p>
+                </div>
+                {{ component('app:token_packs') }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

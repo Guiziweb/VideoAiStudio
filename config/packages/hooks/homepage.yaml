@@ -1,0 +1,23 @@
+sylius_twig_hooks:
+    hooks:
+        # Configuration homepage custom avec sections modernes
+        'sylius_shop.homepage.index':
+            # Désactiver toutes les sections par défaut
+            banner:
+                enabled: false
+            latest_deals:
+                enabled: false
+            new_collection:
+                enabled: false
+            latest_products:
+                enabled: false
+            # Ajouter nos sections custom
+            hero:
+                template: 'shop/homepage/hero.html.twig'
+                priority: 300
+            workflow:
+                template: 'shop/homepage/workflow.html.twig'
+                priority: 200
+            tokens_preview:
+                template: 'shop/homepage/tokens_preview.html.twig'
+                priority: 100

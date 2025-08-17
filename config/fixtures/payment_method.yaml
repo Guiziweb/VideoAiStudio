@@ -1,0 +1,25 @@
+sylius_fixtures:
+    suites:
+        ai_video_suite:
+            fixtures:
+                payment_method:
+                    name: 'payment_method'
+                    options:
+                        custom:
+                            cash_on_delivery:
+                                code: 'cash_on_delivery'
+                                name: 'Cash on delivery'
+                                gatewayFactory: 'offline'
+                                gatewayConfig:
+                                    use_authorize: true
+                                channels:
+                                    - 'ai_video'
+                                enabled: true
+                            wallet:
+                                code: 'wallet'
+                                name: 'Wallet Payment'
+                                gatewayFactory: 'wallet'
+                                usePayum: false
+                                channels:
+                                    - 'ai_video'
+                                enabled: true

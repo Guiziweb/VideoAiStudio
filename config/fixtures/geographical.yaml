@@ -1,0 +1,18 @@
+sylius_fixtures:
+    suites:
+        ai_video_suite:
+            fixtures:
+                geographical:
+                    options:
+                        countries:
+                            - 'US'
+                            - 'FR'
+                        zones:
+                            US:
+                                name: 'United States'
+                                countries:
+                                    - 'US'
+                            FR:
+                                name: 'Europe'
+                                countries:
+                                    - 'FR'

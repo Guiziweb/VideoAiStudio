@@ -1,0 +1,20 @@
+<div class="text-center mb-5">
+    <div class="mb-4">
+        <div class="d-inline-flex align-items-center justify-content-center bg-primary bg-opacity-10 rounded-circle mb-3" style="width: 4rem; height: 4rem;">
+            {{ ux_icon('tabler:video', { class: 'icon text-primary', style: 'width: 2rem; height: 2rem;' }) }}
+        </div>
+    </div>
+    <h1 class="display-5 fw-bold mb-3">{{ 'app.ui.my_video_generations'|trans }}</h1>
+    <p class="lead text-muted mb-4">{{ 'app.ui.manage_video_generations_description'|trans }}</p>
+    
+    <div class="d-flex gap-3 justify-content-center flex-wrap">
+        <a href="{{ path('app_shop_video_generation_create') }}" class="btn btn-dark btn-lg">
+            {{ ux_icon('tabler:sparkles', { class: 'icon icon-sm me-2' }) }}
+            {{ 'app.ui.new_generation'|trans }}
+        </a>
+        <a href="{{ path('app_shop_tokens_buy') }}" class="btn btn-outline-dark btn-lg">
+            {{ ux_icon('tabler:coins', { class: 'icon icon-sm me-2' }) }}
+            {{ 'app.ui.buy_tokens'|trans }}
+        </a>
+    </div>
+</div>

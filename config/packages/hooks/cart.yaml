@@ -1,0 +1,46 @@
+sylius_twig_hooks:
+    hooks:
+        # ===== PAGE PANIER PRINCIPALE =====
+        # Masquer la colonne quantité et récurrence dans le header du panier pour les tokens
+        'sylius_shop.cart.index.content.form.sections.general.items.head':
+            quantity:
+                enabled: false
+            recurring:
+                enabled: false
+                
+        # Masquer la quantité et récurrence dans le body du panier pour les tokens  
+        'sylius_shop.cart.index.content.form.sections.general.items.body':
+            quantity:
+                enabled: false
+            recurring_settings:
+                enabled: false
+            # Remplacer le template item par le nôtre pour afficher les tokens proprement
+            item:
+                template: 'shop/cart/index/content/form/sections/general/items/body/item.html.twig'
+                priority: 300
+
+        # ===== OFFCANVAS PANIER + NAVIGATION =====
+        # Personnaliser le header et footer de l'offcanvas
+        'sylius_shop.base.offcanvas.cart':
+            header:
+                template: 'shop/offcanvas/cart/header.html.twig'
+                priority: 250
+            footer:
+                template: 'shop/offcanvas/cart/footer.html.twig'
+                priority: 100
+
+        # Hook pour l'offcanvas cart (panier latéral) - même traitement que le panier principal
+        'sylius_shop.base.offcanvas.cart.body.items':
+            item:
+                template: 'shop/offcanvas/cart/body/items/item.html.twig'
+                priority: 300
+
+        # Ajouter navigation dans le body de l'offcanvas
+        'sylius_shop.base.offcanvas.cart.body':
+            navigation:
+                template: 'shop/offcanvas/cart/navigation.html.twig'
+                priority: 300
+            items:
+                template: 'shop/offcanvas/cart/items.html.twig'
+                priority: 200
+

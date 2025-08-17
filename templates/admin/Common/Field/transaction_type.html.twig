@@ -1,0 +1,14 @@
+{%
+    set viewOptions = {
+        credit: { color: 'bg-green-lt' },
+        debit: { color: 'bg-red-lt' }
+    }
+%}
+
+{% set typeValue = data.value ?? data %}
+{% set color = viewOptions[typeValue]['color'] ?? 'bg-secondary' %}
+{% set label = typeValue == 'credit' ? 'Crédit' : (typeValue == 'debit' ? 'Débit' : typeValue) %}
+
+<span class="badge {{ color }}">
+    {{ label }}
+</span>

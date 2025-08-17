@@ -1,0 +1,37 @@
+parameters:
+    level: 6
+    
+    reportUnmatchedIgnoredErrors: false
+    treatPhpDocTypesAsCertain: false
+    
+    paths:
+        - 'src/'
+        - 'tests/'
+        
+    excludePaths:
+        # Test dependencies
+        - '**/tests/**.php'
+        - '**/Tests/**.php'
+        - '**/spec/**.php'
+        
+    ignoreErrors:
+        # Same as Sylius core - no return type for getId() methods
+        - '/Method .+\:\:getId\(\) has no return type specified\./'
+        # Doctrine auto-generated IDs are never written in code, only by ORM
+        - '/Property .+\:\:\$id is never written\, only read\./'
+        # Property unusedType for Doctrine entities
+        - '/Property .+\:\:\$id \(int\|null\) is never assigned int so it can be removed from the property type\./'
+        # Missing generics (same as Sylius)
+        - identifier: missingType.generics
+        # Interface conflicts for generics (same as Sylius)
+        - '/(Interface|Class) [a-zA-Z\\]+ specifies template type (\w+) of interface [a-zA-Z\\]+ as [a-zA-Z\\]+ (of [a-zA-Z\\]+ )?but it''s already specified as/'
+        # Symfony Config Definition Builder fluent API
+        - '/Call to an undefined method .+NodeParentInterface::(scalarNode|integerNode)\(\)\./'
+        # Sylius Component vs Core interface differences
+        - '/Call to an undefined method .+(Interface|Model)::.+\(\)\./'
+        # Return type differences between Component and Core
+        - '/Method .+ should return .+ but returns .+\./'
+        # Unused methods in factories (may be used later or for consistency)
+        - '/Method .+Factory::.+ is unused\./'
+        # Live Component parameters with complex types
+        - '/Method .+ has parameter .+ with no value type specified in iterable type array\./'

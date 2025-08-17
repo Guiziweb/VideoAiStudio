@@ -1,0 +1,19 @@
+sylius_fixtures:
+    suites:
+        ai_video_suite:
+            fixtures:
+                taxon:
+                    name: taxon
+                    options:
+                        custom:
+                            tokens:
+                                code: 'tokens'
+                                name: 'Token Packs'
+                                slug: 'tokens'
+                                description: 'Purchase token packs to generate AI videos'
+                            
+                            digital_services:
+                                code: 'digital-services'
+                                name: 'Digital Services'
+                                slug: 'digital-services'
+                                description: 'AI-powered digital services - paid with wallet tokens'

@@ -1,0 +1,19 @@
+sylius_fixtures:
+    suites:
+        ai_video_suite:
+            fixtures:
+                token_pack_option:
+                    name: product_option
+                    options:
+                        custom:
+                            -   name: 'Pack Size'
+                                code: 'pack_size'
+                                values:
+                                    tokens_10k: '10 000'
+                                    tokens_50k: '50 000' 
+                                    tokens_100k: '100 000'
+                            
+                            -   name: 'Generation Type'
+                                code: 'generation_type'
+                                values:
+                                    standard: 'Standard'

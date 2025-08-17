@@ -1,0 +1,7 @@
+app:
+    ui:
+        insufficient_balance: "Insufficient balance"
+        form:
+            prompt_required: "The prompt cannot be empty."
+            prompt_min_length: "The prompt must contain at least {{ limit }} characters."
+            prompt_max_length: "The prompt cannot exceed {{ limit }} characters."

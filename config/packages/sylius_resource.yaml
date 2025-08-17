@@ -1,0 +1,10 @@
+# @see https://github.com/Sylius/SyliusResourceBundle/blob/master/docs/index.md
+sylius_resource:
+    # Configure the mapping for your resources
+    mapping:
+        paths:
+            - '%kernel.project_dir%/src/Entity'
+            - '%kernel.project_dir%/src/Wallet/Entity'
+            - '%kernel.project_dir%/src/Video/Entity'
+
+    # Resources are now configured via #[AsResource] attributes

@@ -1,0 +1,17 @@
+sylius_twig_hooks:
+    hooks:
+        # ===== ADMIN ASSETS =====
+        'sylius_admin.base#stylesheets':
+            app_styles:
+                template: 'admin/shared/layout/base/stylesheets.html.twig'
+        'sylius_admin.base#javascripts':
+            app_javascripts:
+                template: 'admin/shared/layout/base/javascripts.html.twig'
+
+        # ===== SHOP ASSETS =====
+        'sylius_shop.base#stylesheets':
+            app_styles:
+                template: 'shop/shared/layout/base/stylesheets.html.twig'
+        'sylius_shop.base#javascripts':
+            app_javascripts:
+                template: 'shop/shared/layout/base/javascripts.html.twig'

@@ -1,0 +1,12 @@
+sylius_fixtures:
+    suites:
+        ai_video_suite:
+            listeners:
+                orm_purger: ~
+            fixtures:
+                locale:
+                    name: 'locale'
+                    options:
+                        locales:
+                            - 'fr_FR'
+                            - 'en_US'

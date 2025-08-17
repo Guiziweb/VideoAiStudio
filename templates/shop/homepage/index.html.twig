@@ -1,0 +1,7 @@
+{% set homepage_hook = 'sylius_shop.homepage.index' %}
+
+{% extends '@SyliusShop/shared/layout/base.html.twig' %}
+
+{% block content %}
+    {% hook homepage_hook %}
+{% endblock %}

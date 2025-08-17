@@ -1,0 +1,9 @@
+{% set resources = hookable_metadata.context.resources %}
+
+{% if resources|length == 0 %}
+    {% hook 'empty_state' %}
+{% else %}
+    {% hook 'pagination' %}
+    {% hook 'list' %}
+    {% hook 'pagination' %}
+{% endif %}

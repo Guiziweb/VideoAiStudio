@@ -1,0 +1,39 @@
+# Produits token packs
+sylius_fixtures:
+    suites:
+        ai_video_suite:
+            fixtures:
+                # Créer le produit avec notre factory custom
+                wallet_token_product:
+                    options:
+                        name: "Token Packs"
+                        code: "token_packs"
+                        enabled: true
+                        main_taxon: 'tokens'
+                        taxons: ['tokens']
+                        channels: ['ai_video']
+                        description: "Buy tokens to generate AI videos"
+                        short_description: "Tokens for AI video generation"
+                        product_options: ['pack_size']
+                        variants:
+                            - tokens: "10000"
+                              price: 999  # 9.99€
+                              name: "Pack Starter"
+                              short_description: "Parfait pour débuter et tester l'IA vidéo"
+                              images:
+                                  - path: '%kernel.project_dir%/config/fixtures/img/1.png'
+                                    type: 'main'
+                            - tokens: "50000"
+                              price: 3999  # 39.99€
+                              name: "Pack Pro"
+                              short_description: "Idéal pour les créateurs de contenu réguliers"
+                              images:
+                                  - path: '%kernel.project_dir%/config/fixtures/img/2.png'
+                                    type: 'main'
+                            - tokens: "100000"
+                              price: 6999  # 69.99€
+                              name: "Pack Business"
+                              short_description: "Pour les professionnels et agences"
+                              images:
+                                  - path: '%kernel.project_dir%/config/fixtures/img/3.png'
+                                    type: 'main'

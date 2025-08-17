@@ -1,0 +1,82 @@
+<div {{ attributes }}>
+    {% set chart_data = this.chartData %}
+    
+    <div class="card mb-3">
+        <div data-loading>
+            <div class="sylius-loader">
+                <img src="{{ asset('build/admin/images/loader.svg', 'admin') }}" alt="Loading"/>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <div class="btn-group" role="group">
+                    <button
+                        type="button"
+                        class="btn {% if period == '2 weeks' %}btn-light border{% endif %}"
+                        data-action="live#action"
+                        data-live-action-param="changeRange"
+                        data-live-period-param="2 weeks"
+                        data-live-interval-param="day"
+                    >
+                        {{ 'sylius.ui.statistics.2weeks'|trans }}
+                    </button>
+                    <button
+                        type="button"
+                        class="btn {% if period == 'month' %}btn-light border{% endif %}"
+                        data-action="live#action"
+                        data-live-action-param="changeRange"
+                        data-live-period-param="month"
+                        data-live-interval-param="day"
+                    >
+                        {{ 'sylius.ui.statistics.month'|trans }}
+                    </button>
+                    <button
+                        type="button"
+                        class="btn {% if period == 'year' %}btn-light border{% endif %}"
+                        data-action="live#action"
+                        data-live-action-param="changeRange"
+                        data-live-period-param="year"
+                        data-live-interval-param="month"
+                    >
+                        {{ 'sylius.ui.statistics.year'|trans }}
+                    </button>
+                </div>
+                
+                <div class="btn-group" role="group">
+                    <button
+                        type="button"
+                        class="btn btn-icon navigation navigation-prev"
+                        data-action="live#action"
+                        data-live-action-param="getPreviousPeriod"
+                        title="Période précédente"
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none">
+                            <path stroke="none" d="m0 0h24v24H0z" fill="none"/>
+                            <polyline points="15,6 9,12 15,18"/>
+                        </svg>
+                    </button>
+                    <button
+                        type="button"
+                        class="btn btn-icon navigation navigation-next"
+                        data-action="live#action"
+                        data-live-action-param="getNextPeriod"
+                        title="Période suivante"
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none">
+                            <path stroke="none" d="m0 0h24v24H0z" fill="none"/>
+                            <polyline points="9,6 15,12 9,18"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <div
+                id="wallet-transactions-chart"
+                class="chart-lg"
+                data-intervals="{{ chart_data.intervals|json_encode }}"
+                data-balances="{{ chart_data.balances|json_encode }}"
+            ></div>
+        </div>
+    </div>
+</div>
+

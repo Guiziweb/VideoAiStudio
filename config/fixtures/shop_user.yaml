@@ -1,0 +1,12 @@
+sylius_fixtures:
+    suites:
+        ai_video_suite:
+            fixtures:
+                shop_user:
+                    name: 'shop_user'
+                    options:
+                        custom:
+                            -   email: 'user@aivideo.com'
+                                first_name: 'Test'
+                                last_name: 'User'
+                                password: 'root'

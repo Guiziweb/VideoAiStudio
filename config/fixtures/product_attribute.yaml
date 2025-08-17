@@ -1,0 +1,12 @@
+sylius_fixtures:
+    suites:
+        ai_video_suite:
+            fixtures:
+                token_attribute:
+                    name: product_attribute
+                    options:
+                        custom:
+                            -   name: 'Token Count'
+                                code: 'token_count'
+                                type: 'integer'
+                                translatable: false

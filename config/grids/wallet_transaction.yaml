@@ -1,0 +1,67 @@
+sylius_grid:
+    grids:
+        app_admin_wallet_transaction:
+            driver:
+                name: doctrine/orm
+                options:
+                    class: App\Wallet\Entity\WalletTransaction
+            fields:
+                id:
+                    type: string
+                    label: ID
+                wallet:
+                    type: twig
+                    label: Wallet
+                    options:
+                        template: 'admin/Common/Field/wallet.html.twig'
+                type:
+                    type: twig
+                    label: Type
+                    options:
+                        template: 'admin/Common/Field/transaction_type.html.twig'
+                amount:
+                    type: twig
+                    label: Montant
+                    options:
+                        template: 'admin/Common/Field/transaction_amount.html.twig'
+                reference:
+                    type: string
+                    label: Référence
+                createdAt:
+                    type: datetime
+                    label: Date
+                    options:
+                        format: 'd/m/Y H:i'
+            filters:
+                type:
+                    type: select
+                    label: Type
+                    form_options:
+                        choices:
+                            Crédit: credit
+                            Débit: debit
+                customer:
+                    type: ux_autocomplete
+                    label: Customer
+                    form_options:
+                        extra_options:
+                            class: '%sylius.model.customer.class%'
+                            choice_label: fullname
+                    options:
+                        fields: [wallet.customer]
+                date:
+                    type: date
+                    label: sylius.ui.date
+                    options:
+                        field: createdAt
+                        inclusive_to: true
+                reference:
+                    type: string
+                    label: Référence
+                    form_options:
+                        type: !php/const Sylius\Component\Grid\Filter\StringFilter::TYPE_CONTAINS
+            sorting:
+                createdAt: desc
+                type: asc
+                amount: desc
+            actions: {}

@@ -1,0 +1,11 @@
+<div class="text-center py-5">
+    <div class="mb-4">
+        {{ ux_icon('tabler:video-off', { class: 'icon text-muted', style: 'width: 4rem; height: 4rem;' }) }}
+    </div>
+    <h3 class="mb-3">{{ 'app.ui.no_generations_yet'|trans }}</h3>
+    <p class="text-muted mb-4">{{ 'app.ui.start_generating_message'|trans }}</p>
+    <a href="{{ path('app_shop_video_generation_create') }}" class="btn btn-lg btn-dark">
+        {{ ux_icon('tabler:sparkles', { class: 'icon icon-sm me-2' }) }}
+        {{ 'app.ui.generate_first_video'|trans }}
+    </a>
+</div>

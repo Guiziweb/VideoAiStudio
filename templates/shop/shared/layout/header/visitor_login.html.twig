@@ -1,0 +1,14 @@
+{% import '@SyliusShop/shared/buttons.html.twig' as buttons %}
+
+<button class="btn btn-shop-icon" data-bs-toggle="dropdown" aria-expanded="false">
+    {{ ux_icon('tabler:adjustments') }}
+</button>
+<ul class="dropdown-menu dropdown-menu-end">
+    <li>
+        {{ buttons.transparent(path('app_shop_tokens_buy'), 'app.ui.add_tokens'|trans, 'visitor-add-tokens-button', 'tabler:plus', 'dropdown-item') }}
+    </li>
+    <li><hr class="dropdown-divider"></li>
+    <li>
+        {{ buttons.transparent(path('sylius_shop_login'), 'sylius.ui.login'|trans, 'visitor-login-button', 'tabler:login', 'dropdown-item') }}
+    </li>
+</ul>

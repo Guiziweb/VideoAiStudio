@@ -1,0 +1,9 @@
+{% if is_granted('ROLE_USER') and app.user.customer.wallet %}
+    <div class="col-auto" {{ sylius_test_html_attribute('wallet-balance') }}>
+        <div class="d-flex align-items-center text-muted pe-3">
+            <span class="fw-medium">
+                {{ app.user.customer.wallet.balance }} {{ 'app.ui.tokens'|trans }}
+            </span>
+        </div>
+    </div>
+{% endif %}

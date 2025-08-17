@@ -1,0 +1,25 @@
+sylius_fixtures:
+    suites:
+        ai_video_suite:
+            fixtures:
+                channel:
+                    name: 'channel'
+                    options:
+                        custom:
+                            ai_video:
+                                code: 'ai_video'
+                                name: 'AI Video Suite'
+                                hostname: 'localhost'
+                                color: 'DodgerBlue'
+                                currencies:
+                                    - 'EUR'
+                                    - 'USD'
+                                locales:
+                                    - 'fr_FR'
+                                    - 'en_US'
+                                default_locale: 'fr_FR'
+                                base_currency: 'EUR'
+                                theme_name: 'shop'
+                                enabled: true
+                                shipping_address_in_checkout_required: false
+                                skipping_shipping_step_allowed: true

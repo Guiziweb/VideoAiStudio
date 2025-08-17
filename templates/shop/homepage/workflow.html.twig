@@ -1,0 +1,55 @@
+
+
+<section class="py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="text-center mb-5">
+                    <h2 class="display-5 fw-bold">Comment ça marche</h2>
+                    <p class="lead">Simplicité et efficacité au cœur de notre processus</p>
+                </div>
+
+                <div class="timeline position-relative">
+                    {% for item in [
+                        {step: 1, icon: 'tabler:wallet', title: 'Tokens', subtitle: 'Rechargez votre compte', desc: 'Achetez des tokens en quelques clics. Paiement sécurisé, disponibilité immédiate.', color: 'primary'},
+                        {step: 2, icon: 'tabler:brain', title: 'Création', subtitle: 'Donnez vie à vos idées', desc: 'Décrivez votre vidéo avec des mots simples. Notre IA comprend et interprète votre vision.', color: 'success'},
+                        {step: 3, icon: 'tabler:video', title: 'Résultat', subtitle: 'Votre vidéo est prête', desc: 'Téléchargez votre création en haute définition. Partagez, diffusez, impressionnez.', color: 'warning'}
+                    ] %}
+                        <div class="d-flex align-items-start mb-5 timeline-item" style="opacity: 0; transform: translateX(-50px); animation: slideIn 0.6s ease forwards; animation-delay: {{ (item.step - 1) * 0.2 }}s;">
+                            <div class="flex-shrink-0 me-4">
+                                <div class="bg-{{ item.color }} rounded-circle d-flex align-items-center justify-content-center text-white shadow-lg" style="width: 70px; height: 70px;">
+                                    {{ ux_icon(item.icon, { class: 'icon icon-lg' }) }}
+                                </div>
+                                {% if not loop.last %}
+                                    <div class="bg-{{ item.color }} mx-auto mt-3" style="width: 3px; height: 100px; opacity: 0.3;"></div>
+                                {% endif %}
+                            </div>
+                            <div class="flex-grow-1">
+                                <div class="d-flex align-items-center mb-2">
+                                    <span class="badge bg-{{ item.color }} me-3">Étape {{ item.step }}</span>
+                                    <h4 class="fw-bold mb-0">{{ item.title }}</h4>
+                                </div>
+                                <p class="text-{{ item.color }} fw-semibold mb-2">{{ item.subtitle }}</p>
+                                <p class="text-muted mb-0">{{ item.desc }}</p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+@keyframes slideIn {
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.timeline-item {
+    opacity: 0;
+    transform: translateX(-50px);
+}
+</style>

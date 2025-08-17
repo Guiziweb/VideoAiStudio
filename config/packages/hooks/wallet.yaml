@@ -1,0 +1,7 @@
+sylius_twig_hooks:
+    hooks:
+        # Hook pour ajouter du contenu à la page wallet (avec autoprefixing)
+        'sylius_admin.wallet.show.content':
+            transactions:
+                template: 'admin/wallet/show_content.html.twig'
+                priority: 100

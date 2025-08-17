@@ -1,0 +1,30 @@
+<div class="text-center mb-5">
+    <div class="mb-4">
+        <div class="d-inline-flex align-items-center justify-content-center bg-primary bg-opacity-10 rounded-circle mb-3" style="width: 5rem; height: 5rem;">
+            {{ ux_icon('tabler:video', { class: 'icon text-primary', style: 'width: 2.5rem; height: 2.5rem;' }) }}
+        </div>
+    </div>
+    <h1 class="display-4 fw-bold mb-3">{{ 'app.ui.generate_video_menu'|trans }}</h1>
+    <p class="lead text-muted mb-4">{{ 'app.ui.video_generation_description'|trans }}</p>
+    
+    <div class="row g-4 justify-content-center mb-5">
+        <div class="col-auto">
+            <div class="d-flex align-items-center">
+                {{ ux_icon('tabler:zap', { class: 'icon icon-sm text-warning me-2' }) }}
+                <span class="small fw-semibold">{{ 'app.ui.ai_powered'|trans }}</span>
+            </div>
+        </div>
+        <div class="col-auto">
+            <div class="d-flex align-items-center">
+                {{ ux_icon('tabler:clock', { class: 'icon icon-sm text-success me-2' }) }}
+                <span class="small fw-semibold">{{ 'app.ui.fast_generation'|trans }}</span>
+            </div>
+        </div>
+        <div class="col-auto">
+            <div class="d-flex align-items-center">
+                {{ ux_icon('tabler:hd', { class: 'icon icon-sm text-info me-2' }) }}
+                <span class="small fw-semibold">{{ 'app.ui.high_quality'|trans }}</span>
+            </div>
+        </div>
+    </div>
+</div>

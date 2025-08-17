@@ -1,0 +1,82 @@
+{% set product = this.tokenProduct %}
+
+{% if not product or product.enabledVariants is empty %}
+    <div class="alert alert-warning border-0 rounded-3" role="alert">
+        <div class="d-flex align-items-center">
+            {{ ux_icon('tabler:alert-circle', { class: 'icon me-3 text-warning' }) }}
+            <div>
+                <h5 class="alert-heading mb-1">{{ 'app.ui.no_packs_title'|trans }}</h5>
+                <p class="mb-0 small">{{ 'app.ui.no_token_packs_available'|trans }}</p>
+            </div>
+        </div>
+    </div>
+{% else %}
+    <div class="row g-4 justify-content-center">
+        {% for variant in product.enabledVariants %}
+            {% set isPro = loop.index == 2 %}
+            
+            <div class="col-lg-4">
+                <div class="card border-0 h-100 shadow{% if isPro %}-lg{% endif %} text-center position-relative"
+                     style="{% if isPro %}transform: scale(1.02);{% endif %}">
+                    
+                    {% if isPro %}
+                        <span class="badge bg-success position-absolute top-0 end-0 m-2 px-2 py-1 small">Meilleure offre</span>
+                    {% endif %}
+                    
+                    <div class="card-body p-4 d-flex flex-column h-100">
+
+                        <h4 class="fw-bold mb-3">{{ variant.name }}</h4>
+
+                        <div class="mb-3">
+                            <div class="display-4 fw-bold text-primary">
+                                {% for option_value in variant.optionValues %}
+                                    {{ option_value.value }}
+                                {% endfor %}
+                            </div>
+                            <div class="text-primary">tokens</div>
+                        </div>
+
+                        <div class="mb-4">
+                            <div class="h2 fw-bold">
+                                {{ variant.channelPricingForChannel(sylius.channel).price|sylius_format_money(sylius.channel.baseCurrency.code) }}
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <div class="d-flex justify-content-center gap-3 text-success small">
+                                <span>{{ ux_icon('tabler:check', { class: 'icon icon-xs me-1' }) }}Instantané</span>
+                                <span>{{ ux_icon('tabler:infinity', { class: 'icon icon-xs me-1' }) }}Sans expiration</span>
+                            </div>
+                        </div>
+
+                        <div class="mt-auto">
+                            <div class="d-grid mb-3">
+                                {{ component('app:token_add_to_cart_form', {
+                                    product: product,
+                                    variantId: variant.id
+                                }) }}
+                            </div>
+
+                            <div>
+                                <small class="text-muted">
+                                    {{ ux_icon('tabler:lock', { class: 'icon icon-xs me-1' }) }}
+                                    Paiement sécurisé
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    {# Trust badges #}
+    <div class="text-center mt-5">
+        <div class="d-inline-flex gap-4 flex-wrap justify-content-center">
+            <div><span class="text-success">✓</span> +10 000 clients</div>
+            <div><span class="text-success">✓</span> Note 4.9/5</div>
+            <div><span class="text-success">✓</span> Support français</div>
+            <div><span class="text-success">✓</span> Données sécurisées</div>
+        </div>
+    </div>
+{% endif %}

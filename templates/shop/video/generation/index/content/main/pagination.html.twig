@@ -1,0 +1,7 @@
+{% set resources = hookable_metadata.context.resources %}
+
+{% if resources.haveToPaginate %}
+    <div class="d-flex justify-content-center mt-5">
+        {{ pagerfanta(resources, 'twitter_bootstrap5') }}
+    </div>
+{% endif %}

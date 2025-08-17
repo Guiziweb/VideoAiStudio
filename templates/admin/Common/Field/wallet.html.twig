@@ -1,0 +1,14 @@
+{% if data %}
+    <div>
+        <a href="{{ path('sylius_admin_customer_show', { id: data.customer.id }) }}" class="fw-bold text-decoration-none">
+            {{ data.customer.email }}
+        </a>
+        <div class="mt-1">
+            <span class="fw-medium {{ data.balance > 0 ? 'text-success' : 'text-danger' }}">
+                {{ (data.balance / 100)|number_format(2) }}€
+            </span>
+        </div>
+    </div>
+{% else %}
+    <span class="badge bg-secondary">No wallet</span>
+{% endif %}

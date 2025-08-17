@@ -1,0 +1,26 @@
+{% set cart = hookable_metadata.context.cart %}
+
+<div class="mb-4">
+    <h6 class="fw-semibold text-dark mb-3 d-flex align-items-center">
+        {{ ux_icon('tabler:shopping-cart', { class: 'icon me-2 text-primary' }) }}
+        {{ 'sylius.ui.cart'|trans }}
+    </h6>
+    
+    {% if cart.isEmpty %}
+        <div class="text-center py-4">
+            <div class="mb-3">
+                {{ ux_icon('tabler:shopping-bag', { class: 'icon text-muted', style: 'width: 3rem; height: 3rem;' }) }}
+            </div>
+            <h6 class="fw-semibold mb-2">{{ 'sylius.ui.your_cart_is_empty'|trans }}</h6>
+            <p class="text-muted small mb-4">{{ 'app.ui.add_tokens_to_start'|trans }}</p>
+            <a href="{{ path('app_shop_tokens_buy') }}" class="btn btn-primary btn-sm">
+                {{ ux_icon('tabler:plus', { class: 'icon icon-sm me-2' }) }}
+                {{ 'app.ui.buy_tokens'|trans }}
+            </a>
+        </div>
+    {% else %}
+        <div class="bg-light rounded p-3">
+            {% include '@SyliusShop/shared/layout/base/offcanvas/cart/body/items.html.twig' %}
+        </div>
+    {% endif %}
+</div>

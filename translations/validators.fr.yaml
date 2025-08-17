@@ -1,0 +1,7 @@
+app:
+    ui:
+        insufficient_balance: "Solde insuffisant"
+        form:
+            prompt_required: "Le prompt ne peut pas être vide."
+            prompt_min_length: "Le prompt doit contenir au moins {{ limit }} caractères."
+            prompt_max_length: "Le prompt ne peut pas dépasser {{ limit }} caractères."

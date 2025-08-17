@@ -1,0 +1,25 @@
+# Produit pour la génération vidéo
+sylius_fixtures:
+    suites:
+        ai_video_suite:
+            fixtures:
+                # Produit pour la génération vidéo (payé avec wallet)
+                video_generation_product:
+                    name: wallet_token_product
+                    options:
+                        name: 'Video Generation'
+                        code: 'video_generation'
+                        enabled: true
+                        main_taxon: 'digital-services'
+                        taxons: ['digital-services']
+                        channels: ['ai_video']
+                        description: 'Génération de vidéo par intelligence artificielle'
+                        short_description: 'Service de génération vidéo IA'
+                        product_options: ['generation_type']
+                        variants:
+                            - name: 'Standard Generation'
+                              price: 1000  # 3000 tokens par génération
+                              tokens: 'standard'
+                        images:
+                            - path: '@SyliusCoreBundle/Resources/fixtures/t-shirts/man/t-shirt_06_1.webp'
+                              type: 'main'

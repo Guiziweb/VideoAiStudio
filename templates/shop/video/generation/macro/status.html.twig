@@ -1,0 +1,13 @@
+{% macro label(status) %}
+    {% set status_to_colors_map = {
+        pending: 'bg-secondary',
+        processing: 'bg-info',
+        completed: 'bg-success',
+        failed: 'bg-danger'
+    } %}
+
+
+    <span class="badge {{ status_to_colors_map[status]|default('bg-secondary') }}">
+        {{ ('app.ui.video_status.' ~ status) | trans }}
+    </span>
+{% endmacro %}

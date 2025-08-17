@@ -1,0 +1,80 @@
+sylius_twig_hooks:
+    hooks:
+        # Hooks pour les pages de génération vidéo
+        'sylius.shop.video_generation.index':
+            content:
+                template: 'shop/video/generation/index/content.html.twig'
+                priority: 100
+        
+        'sylius.shop.video_generation.index.header':
+            header:
+                template: 'shop/video/generation/index/content/header.html.twig'
+                priority: 100
+        
+        'sylius.shop.video_generation.index.main':
+            main:
+                template: 'shop/video/generation/index/content/main.html.twig'
+                priority: 100
+        
+        'sylius.shop.video_generation.index.main.empty_state':
+            empty_state:
+                template: 'shop/video/generation/index/content/main/empty_state.html.twig'
+                priority: 100
+        
+        'sylius.shop.video_generation.index.main.list':
+            list:
+                template: 'shop/video/generation/index/content/main/list.html.twig'
+                priority: 100
+        
+        'sylius.shop.video_generation.index.main.list.item':
+            item:
+                template: 'shop/video/generation/index/content/main/list/item.html.twig'
+                priority: 100
+        
+        'sylius.shop.video_generation.index.main.list.item.thumbnail':
+            thumbnail:
+                template: 'shop/video/generation/index/content/main/list/item/thumbnail.html.twig'
+                priority: 200
+        
+        'sylius.shop.video_generation.index.main.list.item.info':
+            info:
+                template: 'shop/video/generation/index/content/main/list/item/info.html.twig'
+                priority: 100
+        
+        'sylius.shop.video_generation.index.main.pagination':
+            pagination:
+                template: 'shop/video/generation/index/content/main/pagination.html.twig'
+                priority: 100
+        
+        'sylius.shop.video_generation.create':
+            content:
+                template: 'shop/video/generation/create/content.html.twig'
+                priority: 100
+        
+        'sylius.shop.video_generation.create.header':
+            header:
+                template: 'shop/video/generation/create/content/header.html.twig'
+                priority: 100
+        
+        'sylius.shop.video_generation.create.main':
+            main:
+                template: 'shop/video/generation/create/content/main.html.twig'
+                priority: 100
+        
+        'sylius.shop.video_generation.create.main.form':
+            form:
+                template: 'shop/video/generation/create/content/main/form.html.twig'
+                priority: 100
+        
+        'sylius.shop.video_generation.create.main.form.fields':
+            prompt:
+                template: 'shop/video/generation/create/content/main/form/prompt.html.twig'
+                priority: 200
+            submit:
+                template: 'shop/video/generation/create/content/main/form/submit.html.twig'
+                priority: 100
+        
+        'sylius.shop.video_generation.create.tips':
+            tips:
+                template: 'shop/video/generation/create/tips.html.twig'
+                priority: 100

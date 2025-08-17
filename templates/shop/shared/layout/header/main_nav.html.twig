@@ -1,0 +1,23 @@
+<div class="col-auto d-none d-lg-block">
+    <div class="navbar-nav flex-row gap-4">
+        <a href="{{ path('sylius_shop_homepage') }}" class="nav-link {{ app.request.get('_route') == 'sylius_shop_homepage' ? 'active' : '' }}">
+            {{ ux_icon('tabler:home', { class: 'icon icon-sm me-2' }) }}
+            {{ 'app.ui.nav.home'|trans }}
+        </a>
+        
+        <a href="{{ path('app_shop_video_generation_create') }}" class="nav-link {{ app.request.get('_route') starts with 'app_shop_video_generation_create' ? 'active' : '' }}">
+            {{ ux_icon('tabler:sparkles', { class: 'icon icon-sm me-2' }) }}
+            {{ 'app.ui.nav.generate'|trans }}
+        </a>
+        
+        <a href="{{ path('app_shop_video_generation_index') }}" class="nav-link {{ app.request.get('_route') starts with 'app_shop_video_generation_index' ? 'active' : '' }}">
+            {{ ux_icon('tabler:video', { class: 'icon icon-sm me-2' }) }}
+            {{ 'app.ui.nav.gallery'|trans }}
+        </a>
+        
+        <a href="{{ path('app_shop_tokens_buy') }}" class="nav-link {{ app.request.get('_route') == 'app_shop_tokens_buy' ? 'active' : '' }}">
+            {{ ux_icon('tabler:coins', { class: 'icon icon-sm me-2' }) }}
+            {{ 'app.ui.nav.tokens'|trans }}
+        </a>
+    </div>
+</div>
