@@ -8,6 +8,15 @@ app:
         wallet_insufficient_funds: "Fonds insuffisants"
         wallet_details: "Détails du wallet"
         no_transactions: "Aucune transaction pour le moment"
+        payment_failed: "Échec du paiement"
+        videos: "Vidéos"
+        video:
+            generate: "Générer une vidéo"
+            generation_started: "Votre vidéo est en cours de génération !"
+            generation_error: "Une erreur est survenue lors de la génération de la vidéo."
+            not_found: "Génération vidéo introuvable."
+            access_denied: "Vous ne pouvez pas supprimer cette génération."
+            deleted_successfully: "La génération vidéo a été supprimée avec succès."
         tokens: "tokens"
         add_tokens: "Ajouter des tokens"
         buy_tokens: "Acheter des tokens"
@@ -21,61 +30,6 @@ app:
             generate: "Générer"
             gallery: "Galerie"
             tokens: "Tokens"
-    homepage:
-        hero:
-            title: "Votre vidéo en 3 clics"
-            subtitle: "Créez des vidéos personnalisées en quelques clics grâce à notre technologie d'intelligence artificielle avancée"
-            cta_generate: "Générer ma première vidéo"
-            cta_gallery: "Voir ma galerie"
-            cta_start: "Commencer gratuitement"
-            cta_login: "Se connecter"
-        features:
-            speed:
-                title: "Génération Rapide"
-                description: "Créez vos vidéos en seulement 5 secondes grâce à notre infrastructure optimisée"
-            quality:
-                title: "Qualité HD"
-                description: "Profitez d'une résolution haute définition pour des résultats professionnels"
-            privacy:
-                title: "Confidentialité"
-                description: "Vos données et créations restent privées et sécurisées sur nos serveurs"
-        workflow:
-            title: "Comment ça marche"
-            subtitle: "Créez vos vidéos en 3 étapes simples"
-            step1:
-                title: "Achetez des tokens"
-                description: "Choisissez le pack qui correspond à vos besoins"
-            step2:
-                title: "Décrivez votre vidéo"
-                description: "Utilisez notre interface simple pour décrire votre création"
-            step3:
-                title: "Téléchargez le résultat"
-                description: "Récupérez votre vidéo HD en quelques secondes"
-        tokens:
-            title: "Choisissez vos tokens"
-            subtitle: "Simples, rapides, sans engagement"
-            popular: "Le plus populaire"
-            cta: "Voir tous les packs"
-            starter:
-                title: "Starter"
-                description: "Parfait pour découvrir nos services"
-            pro:
-                title: "Pro"
-                description: "L'offre la plus populaire pour un usage régulier"
-            premium:
-                title: "Premium"
-                description: "Pour les utilisateurs intensifs"
-        choose_token_pack_description: "Choisissez le pack de tokens qui vous convient le mieux"
-        most_popular: "Le plus populaire"
-        add_to_cart: "Ajouter au panier"
-        no_token_packs_available: "Aucun pack de tokens disponible"
-        per_1000_tokens: "/ 1000 tokens"
-        instant_delivery: "Livraison instantanée"
-        no_expiration: "Sans expiration"
-        premium_support: "Support premium"
-        vip_access: "Accès VIP"
-        how_tokens_work: "Comment fonctionnent les tokens ?"
-        tokens_explanation: "Les tokens vous permettent de générer des vidéos IA. Chaque génération consomme des tokens selon la complexité."
         generate_video_menu: "Générer une vidéo"
         your_balance: "Votre solde"
         generation_cost: "Coût de génération"
@@ -117,28 +71,45 @@ app:
         video_tip_visual_style: "Mentionnez le style visuel souhaité"
         video_tip_mood: "Décrivez l'ambiance et les émotions"
         video_tip_duration: "Indiquez la durée approximative"
-        video:
-            generation_started: "Votre vidéo est en cours de génération !"
-            generation_error: "Une erreur est survenue lors de la génération de la vidéo."
-            not_found: "Génération vidéo introuvable."
-            access_denied: "Vous ne pouvez pas supprimer cette génération."
-            deleted_successfully: "La génération vidéo a été supprimée avec succès."
-        # Nouvelles traductions pour l'interface
-        download: "Télécharger"
-        copy_prompt: "Copier le prompt"
-        copied: "Copié"
         delete: "Supprimer"
         confirm_delete: "Êtes-vous sûr de vouloir supprimer cet élément ?"
-        full_prompt: "Prompt complet"
+        copy_prompt: "Copier le prompt"
+        add_to_cart: "Ajouter au panier"
+        no_packs_title: "Aucun pack disponible"
+        no_token_packs_available: "Aucun pack de tokens disponible"
         manage_video_generations_description: "Gérez vos générations vidéo et téléchargez vos créations"
         ai_powered: "IA avancée"
         fast_generation: "Génération rapide"
         high_quality: "Haute qualité"
-        best_value: "Meilleur rapport"
-        secure_payment: "Paiement sécurisé"
-        no_packs_title: "Aucun pack disponible"
-        need_help_title: "Besoin d'aide ?"
-        need_help_description: "Notre équipe support est là pour vous accompagner dans votre choix."
-        contact_support: "Contacter le support"
-        choose_token_pack: "Choisissez votre pack de tokens pour commencer"
-
+        choose_token_pack: "Choisissez votre pack de tokens"
+    homepage:
+        hero:
+            title: "Votre vidéo en 3 clics"
+            subtitle: "Créez des vidéos personnalisées en quelques clics grâce à notre technologie d'intelligence artificielle avancée"
+            cta_generate: "Générer ma première vidéo"
+            cta_gallery: "Voir ma galerie"
+            cta_start: "Commencer gratuitement"
+            cta_login: "Se connecter"
+        workflow:
+            title: "Comment ça marche"
+            subtitle: "Simplicité et efficacité au cœur de notre processus"
+            step1:
+                step: "Étape 1"
+                title: "Tokens"
+                subtitle: "Rechargez votre compte"
+                description: "Achetez des tokens en quelques clics. Paiement sécurisé, disponibilité immédiate."
+            step2:
+                step: "Étape 2"
+                title: "Création"
+                subtitle: "Donnez vie à vos idées"
+                description: "Décrivez votre vidéo avec des mots simples. Notre IA comprend et interprète votre vision."
+            step3:
+                step: "Étape 3"
+                title: "Résultat"
+                subtitle: "Votre vidéo est prête"
+                description: "Téléchargez votre création en haute définition. Partagez, diffusez, impressionnez."
+        tokens:
+            title: "Choisissez vos tokens"
+            subtitle: "Simples, rapides, sans engagement"
+            popular: "Le plus populaire"
+            cta: "Voir tous les packs"

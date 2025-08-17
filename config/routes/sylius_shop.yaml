@@ -1,60 +1,8 @@
-# Override du routing shop - exclut les routes produit
-sylius_shop_homepage:
-    path: /
-    methods: [GET]
-    controller: Symfony\Bundle\FrameworkBundle\Controller\TemplateController::templateAction
-    defaults:
-        template: "@SyliusShop/homepage/index.html.twig"
-
-sylius_shop_live_component:
-    path: '/_components/{_live_component}/{_live_action}'
-    defaults:
-        _live_action: 'get'
-
-sylius_shop_security:
-    resource: "@SyliusShopBundle/Resources/config/routing/security.yml"
-
-sylius_shop_user:
-    resource: "@SyliusShopBundle/Resources/config/routing/shop_user.yml"
-
-# sylius_shop_product: DÉSACTIVÉ - utiliser /tokens/buy et /generate
-# sylius_shop_product_review: DÉSACTIVÉ - pas pertinent pour tokens/vidéos
-
-sylius_shop_cart:
-    resource: "@SyliusShopBundle/Resources/config/routing/cart.yml"
-    prefix: /cart
-
-sylius_shop_checkout:
-    resource: "@SyliusShopBundle/Resources/config/routing/checkout.yml"
-    prefix: /checkout
-
-sylius_shop_contact_request:
-    resource: "@SyliusShopBundle/Resources/config/routing/contact.yml"
-    prefix: /contact
-
-sylius_shop_order:
-    resource: "@SyliusShopBundle/Resources/config/routing/order.yml"
-    prefix: /order
-
-sylius_shop_payment_request:
-    resource: "@SyliusShopBundle/Resources/config/routing/payment_request.yaml"
-    prefix: /payment-request
-
-sylius_shop_account:
-    resource: "@SyliusShopBundle/Resources/config/routing/account.yml"
-    prefix: /account
-
-sylius_shop_switch_currency:
-    path: /switch-currency/{code}
-    methods: [GET]
-    defaults:
-        _controller: sylius_shop.controller.currency_switch::switchAction
-
-sylius_shop_switch_locale:
-    path: /switch-locale/{code}
-    methods: [GET]
-    defaults:
-        _controller: sylius_shop.controller.locale_switch::switchAction
+sylius_shop:
+    resource: "@SyliusShopBundle/Resources/config/routing.yml"
+    prefix: /{_locale}
+    requirements:
+        _locale: ^[A-Za-z]{2,4}(_([A-Za-z]{4}|[0-9]{3}))?(_([A-Za-z]{2}|[0-9]{3}))?$
 
 sylius_shop_payum:
     resource: "@SyliusPayumBundle/Resources/config/routing/integrations/sylius_shop.yaml"
@@ -62,7 +10,11 @@ sylius_shop_payum:
 sylius_payment_notify:
     resource: "@SyliusPaymentBundle/Resources/config/routing/integrations/sylius.yaml"
 
-
+sylius_shop_default_locale:
+    path: /
+    methods: [GET]
+    defaults:
+        _controller: sylius_shop.controller.locale_switch::switchAction
 
 # see https://web.dev/change-password-url/
 sylius_shop_request_password_reset_token_redirect:
@@ -74,7 +26,7 @@ sylius_shop_request_password_reset_token_redirect:
         permanent: false
 
 app_shop_tokens_buy:
-    path: /tokens/buy
+    path: /{_locale}/tokens/buy
     methods: [GET]
     defaults:
         _controller: Symfony\Bundle\FrameworkBundle\Controller\TemplateController

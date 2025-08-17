@@ -18,9 +18,9 @@ use Sylius\Resource\Metadata\Index;
     alias: 'app.video_generation',
     section: 'shop',
     templatesDir: 'shop/video/generation',
-    routePrefix: '',
+    routePrefix: '/{_locale}/videos',
     vars: [
-        'subheader' => 'app.ui.video',
+        'subheader' => 'app.ui.videos',
     ],
     operations: [
         new Index(),

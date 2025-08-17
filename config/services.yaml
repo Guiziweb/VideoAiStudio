@@ -25,13 +25,10 @@ services:
         resource: '../src/*'
         exclude: '../src/{Entity,Kernel.php}'
 
-    
-
-
     App\Wallet\Payment\CommandHandler\PayWalletCommandHandler:
         arguments:
-            $paymentRequestStateMachine: '@debug.state_machine.sylius_payment_request'
-            $paymentStateMachine: '@debug.state_machine.sylius_payment'
+            $paymentRequestStateMachine: '@state_machine.sylius_payment_request'
+            $paymentStateMachine: '@state_machine.sylius_payment'
     
 
 

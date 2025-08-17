@@ -14,6 +14,7 @@ use Sylius\Resource\Metadata\Index;
 #[AsResource(
     alias: 'app.wallet_transaction',
     section: 'admin',
+    routePrefix: '/admin',
     templatesDir: '@SyliusAdmin/shared/crud',
     driver: 'doctrine/orm',
     vars: [

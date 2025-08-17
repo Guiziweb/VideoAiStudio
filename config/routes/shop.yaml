@@ -1,5 +1,0 @@
-app_shop_tokens_buy:
-    path: /tokens/buy
-    defaults:
-        _controller: App\Wallet\Controller\Shop\TokenPurchaseController::buyTokensPage
-    methods: [GET]
