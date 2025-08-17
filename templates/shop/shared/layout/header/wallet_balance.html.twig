@@ -1,8 +1,0 @@
-{% if app.user and app.user.customer.wallet %}
-    <div class="col-auto">
-        <a href="{{ path('app_shop_tokens_buy') }}" class="d-none d-lg-flex align-items-center text-decoration-none text-muted nav-link">
-            {{ ux_icon('tabler:coins', { class: 'icon me-2' }) }}
-            <span class="fw-medium">{{ app.user.customer.wallet.balance }} {{ 'app.ui.tokens'|trans }}</span>
-        </a>
-    </div>
-{% endif %}

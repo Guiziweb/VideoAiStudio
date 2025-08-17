@@ -27,7 +27,7 @@
                             <div class="position-absolute top-0 end-0 m-2">
                                 <span class="badge bg-success">
                                     {{ ux_icon('tabler:check', { class: 'icon icon-xs me-1' }) }}
-                                    {{ 'app.ui.completed'|trans }}
+                                    {{ 'app.ui.video_status.completed'|trans }}
                                 </span>
                             </div>
                         {% elseif generation.status == 'processing' %}
@@ -35,9 +35,9 @@
                             <div class="position-absolute top-0 end-0 m-2">
                                 <span class="badge bg-primary">
                                     <div class="spinner-border spinner-border-sm me-1" role="status" style="width: 0.75rem; height: 0.75rem;">
-                                        <span class="visually-hidden">{{ 'app.ui.processing'|trans }}</span>
+                                        <span class="visually-hidden">{{ 'app.ui.video_status.processing'|trans }}</span>
                                     </div>
-                                    {{ 'app.ui.processing'|trans }}
+                                    {{ 'app.ui.video_status.processing'|trans }}
                                 </span>
                             </div>
                         {% elseif generation.status == 'pending' %}
@@ -45,9 +45,17 @@
                             <div class="position-absolute top-0 end-0 m-2">
                                 <span class="badge bg-warning">
                                     <div class="spinner-border spinner-border-sm me-1" role="status" style="width: 0.75rem; height: 0.75rem;">
-                                        <span class="visually-hidden">{{ 'app.ui.pending'|trans }}</span>
+                                        <span class="visually-hidden">{{ 'app.ui.video_status.pending'|trans }}</span>
                                     </div>
-                                    {{ 'app.ui.pending'|trans }}
+                                    {{ 'app.ui.video_status.pending'|trans }}
+                                </span>
+                            </div>
+                        {% elseif generation.status == 'failed' %}
+                            <div class="ratio ratio-16x9 bg-dark"></div>
+                            <div class="position-absolute top-0 end-0 m-2">
+                                <span class="badge bg-danger">
+                                    {{ ux_icon('tabler:x', { class: 'icon icon-xs me-1' }) }}
+                                    {{ 'app.ui.video_status.failed'|trans }}
                                 </span>
                             </div>
                         {% else %}
@@ -97,14 +105,10 @@
                                         <small class="badge bg-light text-dark me-2">prompt</small>{{ generation.prompt }}
                                     </p>
                                     <div class="d-flex gap-1 justify-content-end">
-                                        <button class="btn btn-xs btn-outline-secondary" onclick="navigator.clipboard.writeText('{{ generation.prompt|e('js') }}')">
+                                        <button class="btn btn-sm btn-icon btn-outline-secondary" onclick="navigator.clipboard.writeText('{{ generation.prompt|e('js') }}')">
                                             {{ ux_icon('tabler:copy', { class: 'icon icon-xs' }) }}
                                         </button>
-                                        <a href="{{ path('app_shop_video_generation_delete', {id: generation.id}) }}" 
-                                           class="btn btn-xs btn-outline-danger"
-                                           onclick="return confirm('{{ 'app.ui.delete_confirm'|trans }}')">
-                                            {{ ux_icon('tabler:x', { class: 'icon icon-xs' }) }}
-                                        </a>
+                                        {{ buttons.delete(path('app_shop_video_generation_delete', {id: generation.id}), '', false, 'video_generation') }}
                                     </div>
                                 </div>
                             </div>

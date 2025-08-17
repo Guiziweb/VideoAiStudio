@@ -8,9 +8,6 @@ sylius_twig_hooks:
             main_navigation:
                 template: 'shop/shared/layout/header/main_nav.html.twig'
                 priority: 210
-            wallet_balance:
-                template: 'shop/shared/layout/header/wallet_balance.html.twig'
-                priority: 150
 
         # Masquer le message "Hello User!"
         'sylius_shop.base.header.content.security.logged_in_user.desktop':

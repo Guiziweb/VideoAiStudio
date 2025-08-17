@@ -1,0 +1,15 @@
+{% if app.user and app.user.customer.wallet %}
+    <div class="mb-3 p-3 bg-light rounded">
+        <div class="d-flex align-items-center justify-content-between mb-2">
+            <div class="d-flex align-items-center">
+                {{ ux_icon('tabler:wallet', { class: 'icon icon-sm text-muted me-2' }) }}
+                <small class="text-muted">{{ 'app.ui.wallet_balance'|trans }}</small>
+            </div>
+        </div>
+        <div class="fw-bold fs-6 mb-2">{{ app.user.customer.wallet.balance|number_format(0, '.', ' ') }} {{ 'app.ui.tokens'|trans }}</div>
+        <a href="{{ path('app_shop_tokens_buy') }}" class="btn btn-sm btn-outline-primary">
+            {{ ux_icon('tabler:plus', { class: 'icon icon-xs me-1' }) }}
+            {{ 'app.ui.buy_tokens'|trans }}
+        </a>
+    </div>
+{% endif %}

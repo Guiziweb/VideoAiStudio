@@ -5,6 +5,9 @@ sylius_twig_hooks:
             breadcrumbs:
                 template: 'account/video/generation/index/content/breadcrumbs.html.twig'
                 priority: 200
+            menu:
+                template: '@SyliusShop/account/common/content/menu.html.twig'
+                priority: 100
 
         'sylius_shop.account.video_generation.index.content.main':
             header:
@@ -25,6 +28,9 @@ sylius_twig_hooks:
             breadcrumbs:
                 template: 'account/video/generation/create/content/breadcrumbs.html.twig'
                 priority: 200
+            menu:
+                template: '@SyliusShop/account/common/content/menu.html.twig'
+                priority: 100
 
         'sylius_shop.account.video_generation.create.content.main':
             header:

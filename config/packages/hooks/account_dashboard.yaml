@@ -1,0 +1,53 @@
+sylius_twig_hooks:
+    hooks:        
+        # Add wallet balance to ALL account menus
+        'sylius_shop.account.common.index.content.menu':
+            wallet_balance:
+                template: 'account/common/content/menu/wallet_balance.html.twig'
+                priority: 200
+                
+        'sylius_shop.account.profile_update.update.content.menu':
+            wallet_balance:
+                template: 'account/common/content/menu/wallet_balance.html.twig'
+                priority: 200
+                
+        'sylius_shop.account.change_password.update.content.menu':
+            wallet_balance:
+                template: 'account/common/content/menu/wallet_balance.html.twig'
+                priority: 200
+                
+        'sylius_shop.account.order.index.content.menu':
+            wallet_balance:
+                template: 'account/common/content/menu/wallet_balance.html.twig'
+                priority: 200
+                
+        'sylius_shop.account.order.show.content.menu':
+            wallet_balance:
+                template: 'account/common/content/menu/wallet_balance.html.twig'
+                priority: 200
+                
+        'sylius_shop.account.video_generation.create.content.menu':
+            wallet_balance:
+                template: 'account/common/content/menu/wallet_balance.html.twig'
+                priority: 200
+                
+        'sylius_shop.account.video_generation.index.content.menu':
+            wallet_balance:
+                template: 'account/common/content/menu/wallet_balance.html.twig'
+                priority: 200
+                
+        'sylius_shop.account.address_book.index.content.menu':
+            wallet_balance:
+                template: 'account/common/content/menu/wallet_balance.html.twig'
+                priority: 200
+                
+        'sylius_shop.account.address_book.create.content.menu':
+            wallet_balance:
+                template: 'account/common/content/menu/wallet_balance.html.twig'
+                priority: 200
+                
+        'sylius_shop.account.address_book.update.content.menu':
+            wallet_balance:
+                template: 'account/common/content/menu/wallet_balance.html.twig'
+                priority: 200
+                
