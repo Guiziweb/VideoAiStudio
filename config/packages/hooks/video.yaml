@@ -1,80 +1,43 @@
 sylius_twig_hooks:
     hooks:
-        # Hooks pour les pages de génération vidéo
-        'sylius.shop.video_generation.index':
-            content:
-                template: 'shop/video/generation/index/content.html.twig'
-                priority: 100
-        
-        'sylius.shop.video_generation.index.header':
-            header:
-                template: 'shop/video/generation/index/content/header.html.twig'
-                priority: 100
-        
-        'sylius.shop.video_generation.index.main':
-            main:
-                template: 'shop/video/generation/index/content/main.html.twig'
-                priority: 100
-        
-        'sylius.shop.video_generation.index.main.empty_state':
-            empty_state:
-                template: 'shop/video/generation/index/content/main/empty_state.html.twig'
-                priority: 100
-        
-        'sylius.shop.video_generation.index.main.list':
-            list:
-                template: 'shop/video/generation/index/content/main/list.html.twig'
-                priority: 100
-        
-        'sylius.shop.video_generation.index.main.list.item':
-            item:
-                template: 'shop/video/generation/index/content/main/list/item.html.twig'
-                priority: 100
-        
-        'sylius.shop.video_generation.index.main.list.item.thumbnail':
-            thumbnail:
-                template: 'shop/video/generation/index/content/main/list/item/thumbnail.html.twig'
+        # Index page
+        'sylius_shop.account.video_generation.index.content':
+            breadcrumbs:
+                template: 'account/video/generation/index/content/breadcrumbs.html.twig'
                 priority: 200
-        
-        'sylius.shop.video_generation.index.main.list.item.info':
-            info:
-                template: 'shop/video/generation/index/content/main/list/item/info.html.twig'
-                priority: 100
-        
-        'sylius.shop.video_generation.index.main.pagination':
-            pagination:
-                template: 'shop/video/generation/index/content/main/pagination.html.twig'
-                priority: 100
-        
-        'sylius.shop.video_generation.create':
-            content:
-                template: 'shop/video/generation/create/content.html.twig'
-                priority: 100
-        
-        'sylius.shop.video_generation.create.header':
+
+        'sylius_shop.account.video_generation.index.content.main':
             header:
-                template: 'shop/video/generation/create/content/header.html.twig'
+                template: 'account/video/generation/index/content/main/header.html.twig'
+                priority: 300
+            pagination_top:
+                template: 'account/video/generation/index/content/main/pagination.html.twig'
+                priority: 200
+            grid:
+                template: 'account/video/generation/index/content/main/grid.html.twig'
                 priority: 100
+            pagination_bottom:
+                template: 'account/video/generation/index/content/main/pagination.html.twig'
+                priority: 0
         
-        'sylius.shop.video_generation.create.main':
-            main:
-                template: 'shop/video/generation/create/content/main.html.twig'
+        # Create page
+        'sylius_shop.account.video_generation.create.content':
+            breadcrumbs:
+                template: 'account/video/generation/create/content/breadcrumbs.html.twig'
+                priority: 200
+
+        'sylius_shop.account.video_generation.create.content.main':
+            header:
+                template: 'account/video/generation/create/content/main/header.html.twig'
                 priority: 100
-        
-        'sylius.shop.video_generation.create.main.form':
             form:
-                template: 'shop/video/generation/create/content/main/form.html.twig'
-                priority: 100
+                template: 'account/video/generation/create/content/main/form.html.twig'
+                priority: 0
         
-        'sylius.shop.video_generation.create.main.form.fields':
+        'sylius_shop.account.video_generation.create.content.main.form':
             prompt:
-                template: 'shop/video/generation/create/content/main/form/prompt.html.twig'
-                priority: 200
-            submit:
-                template: 'shop/video/generation/create/content/main/form/submit.html.twig'
-                priority: 100
-        
-        'sylius.shop.video_generation.create.tips':
+                template: 'account/video/generation/create/content/main/form/prompt.html.twig'
+                priority: 300
             tips:
-                template: 'shop/video/generation/create/tips.html.twig'
-                priority: 100
+                template: 'account/video/generation/create/content/main/form/tips.html.twig'
+                priority: 200

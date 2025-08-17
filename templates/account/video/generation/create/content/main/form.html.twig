@@ -1,0 +1,12 @@
+{% set form = hookable_metadata.context.form %}
+{% form_theme form '@SyliusShop/form/theme.html.twig' %}
+
+{{ form_start(form, { attr: { novalidate: 'novalidate' } }) }}
+{{ form_errors(form) }}
+{{ form_row(form._token) }}
+
+<div class="row g-4">
+    {% hook 'form' with { form } %}
+</div>
+
+{{ form_end(form, { render_rest: false }) }}

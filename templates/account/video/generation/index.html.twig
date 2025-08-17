@@ -1,0 +1,6 @@
+{% extends '@SyliusShop/account/common/index.html.twig' %}
+
+{% set prefixes = ['sylius_shop.account.video_generation'] %}
+{% set attrs = { resources, customer: app.user.customer } %}
+
+{% block title %}{{ 'app.ui.my_video_generations'|trans }} | {{ parent() }}{% endblock %}

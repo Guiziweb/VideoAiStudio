@@ -1,0 +1,7 @@
+{% import '@SyliusShop/shared/pagination/pagination.html.twig' as pagination %}
+
+{% set resources = hookable_metadata.context.resources|default([]) %}
+
+{% if resources and resources.haveToPaginate is defined and resources.haveToPaginate %}
+    {{ pagination.simple(resources) }}
+{% endif %}

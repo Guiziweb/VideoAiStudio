@@ -19,28 +19,26 @@ sylius_twig_hooks:
                 template: 'shop/cart/index/content/form/sections/general/items/body/item.html.twig'
                 priority: 300
 
-        # ===== OFFCANVAS PANIER + NAVIGATION =====
-        # Personnaliser le header et footer de l'offcanvas
-        'sylius_shop.base.offcanvas.cart':
-            header:
-                template: 'shop/offcanvas/cart/header.html.twig'
-                priority: 250
-            footer:
-                template: 'shop/offcanvas/cart/footer.html.twig'
-                priority: 100
+        # ===== OFFCANVAS PANIER + NAVIGATION ===== 
+        # DÉSACTIVÉ - Retour aux templates Sylius par défaut
+        # 'sylius_shop.base.offcanvas.cart':
+        #     header:
+        #         template: 'shop/offcanvas/cart/header.html.twig'
+        #         priority: 250
+        #     footer:
+        #         template: 'shop/offcanvas/cart/footer.html.twig'
+        #         priority: 100
 
-        # Hook pour l'offcanvas cart (panier latéral) - même traitement que le panier principal
-        'sylius_shop.base.offcanvas.cart.body.items':
-            item:
-                template: 'shop/offcanvas/cart/body/items/item.html.twig'
-                priority: 300
+        # 'sylius_shop.base.offcanvas.cart.body.items':
+        #     item:
+        #         template: 'shop/offcanvas/cart/body/items/item.html.twig'
+        #         priority: 300
 
-        # Ajouter navigation dans le body de l'offcanvas
-        'sylius_shop.base.offcanvas.cart.body':
-            navigation:
-                template: 'shop/offcanvas/cart/navigation.html.twig'
-                priority: 300
-            items:
-                template: 'shop/offcanvas/cart/items.html.twig'
-                priority: 200
+        # 'sylius_shop.base.offcanvas.cart.body':
+        #     navigation:
+        #         template: 'shop/offcanvas/cart/navigation.html.twig'
+        #         priority: 300
+        #     items:
+        #         template: 'shop/offcanvas/cart/items.html.twig'
+        #         priority: 200
 

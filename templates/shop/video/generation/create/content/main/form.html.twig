@@ -1,8 +1,0 @@
-{% set form = hookable_metadata.context.form %}
-{% form_theme form '@SyliusShop/form/theme.html.twig' %}
-
-{{ form_start(form, {'attr': {'class': 'needs-validation', 'novalidate': true}}) }}
-
-{% hook 'fields' with { form } %}
-
-{{ form_end(form) }}

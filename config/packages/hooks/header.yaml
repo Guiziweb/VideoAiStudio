@@ -1,45 +1,23 @@
 sylius_twig_hooks:
     hooks:
-        # Configuration du header avec brand + navigation + cart
+        # Configuration du header avec brand + navigation + user
         'sylius_shop.base.header.content':
-            # Remplacer le logo Sylius par notre brand
             logo:
                 template: 'shop/shared/layout/header/brand_logo.html.twig'
                 priority: 300
-            # Ajouter notre navigation entre logo et security
             main_navigation:
                 template: 'shop/shared/layout/header/main_nav.html.twig'
-                priority: 250
-            # Conserver la sécurité mais simplifiée
-            security:
-                template: "@SyliusShop/shared/layout/base/header/content/security.html.twig"
-                priority: 200
-            cart:
-                component: 'sylius_shop:cart:widget'
-                props:
-                    template: '@SyliusShop/shared/components/header/cart.html.twig'
-                priority: 100
-            taxon_hamburger:
-                enabled: false
+                priority: 210
+            wallet_balance:
+                template: 'shop/shared/layout/header/wallet_balance.html.twig'
+                priority: 150
 
-        # Simplifier le header - plus de dropdown user, tout dans l'offcanvas
+        # Masquer le message "Hello User!"
         'sylius_shop.base.header.content.security.logged_in_user.desktop':
             welcome_message:
                 enabled: false
-            my_account:
-                enabled: false
-            logout:
-                enabled: false
 
-        'sylius_shop.base.header.content.security.visitor.desktop':
-            user_icon:
-                enabled: false
-            login:
-                enabled: false
-            register:
-                enabled: false
-
-        # Désactiver le menu de navigation principal (taxons) qui cause l'erreur Bootstrap
+        # Désactiver le menu des catégories (on a notre navigation custom)
         'sylius_shop.base.header.navbar':
             menu:
                 enabled: false

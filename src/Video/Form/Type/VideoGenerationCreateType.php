@@ -19,7 +19,7 @@ final class VideoGenerationCreateType extends AbstractType
     {
         $builder
             ->add('prompt', TextareaType::class, [
-                'label' => 'app.ui.video_prompt_label',
+                'label' => false,
                 'attr' => [
                     'rows' => 6,
                     'placeholder' => 'app.ui.video_prompt_placeholder',

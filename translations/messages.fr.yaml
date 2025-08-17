@@ -37,7 +37,7 @@ app:
         insufficient_balance: "Solde insuffisant"
         need_more_tokens_message: "Vous n'avez pas assez de tokens pour générer une vidéo."
         video_prompt_label: "Description de la vidéo à générer"
-        video_prompt_placeholder: "Décrivez la vidéo que vous souhaitez générer..."
+        video_prompt_placeholder: "Commencez à générer vos premières vidéos IA !"
         prompt_help_text: "Entre 10 et 1000 caractères. Soyez précis dans votre description."
         generate_video: "Générer la vidéo (%cost% tokens)"
         view_generations: "Voir mes générations"

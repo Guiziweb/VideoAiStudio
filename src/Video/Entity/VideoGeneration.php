@@ -17,18 +17,25 @@ use Sylius\Resource\Metadata\Index;
 #[AsResource(
     alias: 'app.video_generation',
     section: 'shop',
-    templatesDir: 'shop/video/generation',
-    routePrefix: '/{_locale}/videos',
+    templatesDir: 'account/video/generation',
+    routePrefix: '/{_locale}/account/videos',
     vars: [
-        'subheader' => 'app.ui.videos',
+        'header' => 'app.ui.my_video_generations',
+        'subheader' => 'app.ui.start_generating_message',
     ],
     operations: [
-        new Index(),
+        new Index(
+            vars: [
+                'header' => 'app.ui.my_video_generations',
+                'subheader' => 'app.ui.start_generating_message',
+            ]
+        ),
         new Create(
             path: 'generate',
             formType: VideoGenerationCreateType::class,
             vars: [
-                'subheader' => 'app.ui.video.generate',
+                'header' => 'app.ui.new_generation',
+                'subheader' => 'app.ui.video_prompt_placeholder',
             ],
         ),
         new Delete(),

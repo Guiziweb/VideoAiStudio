@@ -1,7 +1,0 @@
-{% extends '@SyliusShop/shared/layout/base.html.twig' %}
-
-{% block title %}{{ 'app.ui.new_generation'|trans }} | {{ parent() }}{% endblock %}
-
-{% block content %}
-    {% hook 'sylius.shop.video_generation.create' with { form, resource } %}
-{% endblock %}
