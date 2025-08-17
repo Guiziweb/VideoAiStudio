@@ -11,7 +11,7 @@ sylius_fixtures:
                         enabled: true
                         main_taxon: 'tokens'
                         taxons: ['tokens']
-                        channels: ['ai_video']
+                        channels: ['ai_video_fr', 'ai_video_us']
                         description: "Buy tokens to generate AI videos"
                         short_description: "Tokens for AI video generation"
                         product_options: ['pack_size']

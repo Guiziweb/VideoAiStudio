@@ -12,13 +12,13 @@ sylius_fixtures:
                         enabled: true
                         main_taxon: 'digital-services'
                         taxons: ['digital-services']
-                        channels: ['ai_video']
+                        channels: ['ai_video_fr', 'ai_video_us']
                         description: 'Génération de vidéo par intelligence artificielle'
                         short_description: 'Service de génération vidéo IA'
                         product_options: ['generation_type']
                         variants:
                             - name: 'Standard Generation'
-                              price: 1000  # 3000 tokens par génération
+                              price: 1000  # 1000 tokens par génération
                               tokens: 'standard'
                         images:
                             - path: '@SyliusCoreBundle/Resources/fixtures/t-shirts/man/t-shirt_06_1.webp'

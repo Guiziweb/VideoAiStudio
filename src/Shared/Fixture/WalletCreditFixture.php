@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Shared\Fixture;
 
 use App\Entity\Customer\Customer;
-use App\Video\Service\VideoGenerationCostCalculator;
 use App\Wallet\Entity\Wallet;
 use App\Wallet\Enum\TransactionType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -18,7 +17,6 @@ final class WalletCreditFixture extends AbstractFixture
     public function __construct(
         private EntityManagerInterface $entityManager,
         private CustomerRepositoryInterface $customerRepository,
-        private VideoGenerationCostCalculator $costCalculator,
     ) {
     }
 
@@ -93,9 +91,8 @@ final class WalletCreditFixture extends AbstractFixture
                 continue; // Skip si type invalide
             }
 
-            // Si c'est une génération vidéo, utiliser le prix dynamique du produit
             if ($type === TransactionType::DEBIT && str_contains($reference, 'VIDEO_GENERATION')) {
-                $amount = $this->costCalculator->getGenerationCost();
+                $amount = 1000;
             }
 
             // Créer la transaction selon le type

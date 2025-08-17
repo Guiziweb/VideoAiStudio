@@ -6,7 +6,6 @@ namespace App\Video\Fixture;
 
 use App\Entity\Customer\Customer;
 use App\Video\Entity\VideoGeneration;
-use App\Video\Service\VideoGenerationCostCalculator;
 use Doctrine\ORM\EntityManagerInterface;
 use Sylius\Bundle\FixturesBundle\Fixture\AbstractFixture;
 use Sylius\Component\Core\Repository\CustomerRepositoryInterface;
@@ -18,7 +17,6 @@ final class VideoGenerationsFixture extends AbstractFixture
         private EntityManagerInterface $entityManager,
         /** @var CustomerRepositoryInterface<Customer> */
         private CustomerRepositoryInterface $customerRepository,
-        private VideoGenerationCostCalculator $costCalculator,
     ) {
     }
 
@@ -26,9 +24,6 @@ final class VideoGenerationsFixture extends AbstractFixture
     {
         /** @var array<array{customer_email: string, prompt: string, status: string, video_url?: string}> $generations */
         $generations = $options['generations'];
-
-        // Récupérer le prix du produit VIDEO_GENERATION
-        $tokenCost = $this->costCalculator->getGenerationCost();
 
         foreach ($generations as $generationData) {
             $customer = $this->customerRepository->findOneBy(['email' => $generationData['customer_email']]);
@@ -41,7 +36,7 @@ final class VideoGenerationsFixture extends AbstractFixture
             $generation->setCustomer($customer);
             $generation->setPrompt($generationData['prompt']);
             $generation->setStatus($generationData['status']);
-            $generation->setTokenCost($tokenCost);
+            $generation->setTokenCost($generationData['token'] ?? 1000);
 
             if (isset($generationData['video_url'])) {
                 $generation->setVideoUrl($generationData['video_url']);
@@ -72,6 +67,7 @@ final class VideoGenerationsFixture extends AbstractFixture
                             ->scalarNode('prompt')->isRequired()->end()
                             ->scalarNode('status')->defaultValue('pending')->end()
                             ->scalarNode('video_url')->defaultNull()->end()
+                            ->integerNode('token')->defaultValue(1000)->end()
                         ->end()
                     ->end()
                 ->end()

@@ -16,7 +16,8 @@ sylius_fixtures:
                                 description: 'Generate a 30-second AI video from your text prompt'
                                 short_description: 'Basic AI video generation service'
                                 channels:
-                                    - 'ai_video'
+                                    - 'ai_video_fr'
+                                    - 'ai_video_us'
                                 main_taxon: 'digital-services'
                                 taxons:
                                     - 'digital-services'
@@ -34,7 +35,8 @@ sylius_fixtures:
                                 description: 'Generate a 60-second AI video with advanced features'
                                 short_description: 'Premium AI video generation service'
                                 channels:
-                                    - 'ai_video'
+                                    - 'ai_video_fr'
+                                    - 'ai_video_us'
                                 main_taxon: 'digital-services'
                                 taxons:
                                     - 'digital-services'

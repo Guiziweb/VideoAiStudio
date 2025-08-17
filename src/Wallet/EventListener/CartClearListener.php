@@ -36,7 +36,6 @@ final readonly class CartClearListener
 
         // Si on ajoute un produit token, vider le panier d'abord
         if ($product->getCode() === ProductCode::TOKEN_PACKS->value) {
-
             $itemCount = $cart->getItems()->count();
 
             foreach ($cart->getItems() as $existingItem) {

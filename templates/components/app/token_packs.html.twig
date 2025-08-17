@@ -38,7 +38,7 @@
 
                         <div class="mb-4">
                             <div class="h2 fw-bold">
-                                {{ variant.channelPricingForChannel(sylius.channel).price|sylius_format_money(sylius.channel.baseCurrency.code) }}
+                                {{ variant.channelPricingForChannel(sylius.channel).price|sylius_format_money(sylius.channel.baseCurrency.code, app.request.locale) }}
                             </div>
                         </div>
 

@@ -6,19 +6,32 @@ sylius_fixtures:
                     name: 'channel'
                     options:
                         custom:
-                            ai_video:
-                                code: 'ai_video'
-                                name: 'AI Video Suite'
-                                hostname: 'localhost'
+                            ai_video_fr:
+                                code: 'ai_video_fr'
+                                name: 'AI Video Studio FR'
+                                hostname: 'fr.localhost'
                                 color: 'DodgerBlue'
                                 currencies:
                                     - 'EUR'
-                                    - 'USD'
                                 locales:
                                     - 'fr_FR'
-                                    - 'en_US'
                                 default_locale: 'fr_FR'
                                 base_currency: 'EUR'
+                                theme_name: 'shop'
+                                enabled: true
+                                shipping_address_in_checkout_required: false
+                                skipping_shipping_step_allowed: true
+                            ai_video_us:
+                                code: 'ai_video_us'
+                                name: 'AI Video Studio US'
+                                hostname: 'us.localhost'
+                                color: 'ForestGreen'
+                                currencies:
+                                    - 'USD'
+                                locales:
+                                    - 'en_US'
+                                default_locale: 'en_US'
+                                base_currency: 'USD'
                                 theme_name: 'shop'
                                 enabled: true
                                 shipping_address_in_checkout_required: false

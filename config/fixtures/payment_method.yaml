@@ -13,7 +13,8 @@ sylius_fixtures:
                                 gatewayConfig:
                                     use_authorize: true
                                 channels:
-                                    - 'ai_video'
+                                    - 'ai_video_fr'
+                                    - 'ai_video_us'
                                 enabled: true
                             wallet:
                                 code: 'wallet'
@@ -21,5 +22,6 @@ sylius_fixtures:
                                 gatewayFactory: 'wallet'
                                 usePayum: false
                                 channels:
-                                    - 'ai_video'
+                                    - 'ai_video_fr'
+                                    - 'ai_video_us'
                                 enabled: true
