@@ -18,21 +18,21 @@ sylius_fixtures:
                         variants:
                             - tokens: "10000"
                               price: 999  # 9.99€
-                              name: "Pack Starter"
+                              name: "Starter (10 000 tokens)"
                               short_description: "Parfait pour débuter et tester l'IA vidéo"
                               images:
                                   - path: '%kernel.project_dir%/config/fixtures/img/1.png'
                                     type: 'main'
                             - tokens: "50000"
                               price: 3999  # 39.99€
-                              name: "Pack Pro"
+                              name: "Pro (50 000 tokens)"
                               short_description: "Idéal pour les créateurs de contenu réguliers"
                               images:
                                   - path: '%kernel.project_dir%/config/fixtures/img/2.png'
                                     type: 'main'
                             - tokens: "100000"
                               price: 6999  # 69.99€
-                              name: "Pack Business"
+                              name: "Business (100 000 tokens)"
                               short_description: "Pour les professionnels et agences"
                               images:
                                   - path: '%kernel.project_dir%/config/fixtures/img/3.png'

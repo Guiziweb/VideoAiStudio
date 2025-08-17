@@ -9,8 +9,6 @@ use Faker\Generator;
 use Sylius\Bundle\CoreBundle\Fixture\Factory\AbstractExampleFactory;
 use Sylius\Bundle\CoreBundle\Fixture\Factory\ExampleFactoryInterface;
 use Sylius\Bundle\CoreBundle\Fixture\OptionsResolver\LazyOption;
-use Sylius\Component\Attribute\AttributeType\SelectAttributeType;
-use Sylius\Component\Attribute\Model\AttributeValueInterface;
 use Sylius\Component\Core\Formatter\StringInflector;
 use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Core\Model\ChannelPricingInterface;
@@ -21,11 +19,7 @@ use Sylius\Component\Core\Model\ProductVariantInterface;
 use Sylius\Component\Core\Model\TaxonInterface;
 use Sylius\Component\Core\Uploader\ImageUploaderInterface;
 use Sylius\Component\Locale\Model\LocaleInterface;
-use Sylius\Component\Product\Generator\ProductVariantGeneratorInterface;
 use Sylius\Component\Product\Generator\SlugGeneratorInterface;
-use Sylius\Component\Product\Model\ProductAttributeInterface;
-use Sylius\Component\Product\Model\ProductAttributeValueInterface;
-use Sylius\Component\Product\Model\ProductOptionValueInterface;
 use Sylius\Component\Taxation\Model\TaxCategoryInterface;
 use Sylius\Resource\Doctrine\Persistence\RepositoryInterface;
 use Sylius\Resource\Factory\FactoryInterface;
@@ -34,7 +28,6 @@ use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Webmozart\Assert\Assert;
 
 /** @implements ExampleFactoryInterface<ProductInterface> */
 final class CustomProductExampleFactory extends AbstractExampleFactory implements ExampleFactoryInterface
@@ -47,14 +40,11 @@ final class CustomProductExampleFactory extends AbstractExampleFactory implement
         protected readonly FactoryInterface $productFactory,
         protected readonly FactoryInterface $productVariantFactory,
         protected readonly FactoryInterface $channelPricingFactory,
-        protected readonly ProductVariantGeneratorInterface $variantGenerator,
-        protected readonly FactoryInterface $productAttributeValueFactory,
         protected readonly FactoryInterface $productImageFactory,
         protected readonly FactoryInterface $productTaxonFactory,
         protected readonly ImageUploaderInterface $imageUploader,
         protected readonly SlugGeneratorInterface $slugGenerator,
         protected readonly RepositoryInterface $taxonRepository,
-        protected readonly RepositoryInterface $productAttributeRepository,
         protected readonly RepositoryInterface $productOptionRepository,
         protected readonly RepositoryInterface $channelRepository,
         protected readonly RepositoryInterface $localeRepository,
@@ -112,10 +102,7 @@ final class CustomProductExampleFactory extends AbstractExampleFactory implement
             ->setDefault('variant_selection_method', ProductInterface::VARIANT_SELECTION_MATCH)
             ->setAllowedTypes('variant_selection_method', 'string')
             ->setAllowedValues('variant_selection_method', [ProductInterface::VARIANT_SELECTION_MATCH, ProductInterface::VARIANT_SELECTION_CHOICE])
-            ->setDefault('product_attributes', [])
-            ->setAllowedTypes('product_attributes', 'array')
-            ->setNormalizer('product_attributes', fn (Options $options, array $productAttributes): array => $this->setAttributeValues($productAttributes))
-            ->setDefault('product_options', [])
+            ->setRequired('product_options')
             ->setAllowedTypes('product_options', 'array')
             ->setNormalizer('product_options', LazyOption::findBy($this->productOptionRepository, 'code'))
             ->setDefault('images', [])
@@ -123,21 +110,7 @@ final class CustomProductExampleFactory extends AbstractExampleFactory implement
             ->setDefault('shipping_required', false)
             ->setDefault('tax_category', null)
             ->setAllowedTypes('tax_category', ['string', 'null', TaxCategoryInterface::class])
-            // Notre option custom pour les variants avec prix
-            ->setDefault('variants', [
-                [
-                    'tokens' => '10000',
-                    'price' => 999,
-                ],
-                [
-                    'tokens' => '50000',
-                    'price' => 3999,
-                ],
-                [
-                    'tokens' => '100000',
-                    'price' => 6999,
-                ],
-            ])
+            ->setDefault('variants', [])
         ;
 
         $resolver->setNormalizer('tax_category', LazyOption::findOneBy($this->taxCategoryRepository, 'code'));
@@ -166,10 +139,6 @@ final class CustomProductExampleFactory extends AbstractExampleFactory implement
 
         foreach ($options['product_options'] as $option) {
             $product->addOption($option);
-        }
-
-        foreach ($options['product_attributes'] as $attribute) {
-            $product->addAttribute($attribute);
         }
     }
 
@@ -201,24 +170,8 @@ final class CustomProductExampleFactory extends AbstractExampleFactory implement
             }
             $productVariant->setTracked($options['tracked']);
 
-            // Ajouter l'option value selon le nombre de tokens
-            $tokenCount = $variantData['tokens'];
-
-            // Mapper le nombre de tokens vers le code d'option value
-            $optionValueCode = match ($tokenCount) {
-                '10000' => 'tokens_10k',
-                '50000' => 'tokens_50k',
-                '100000' => 'tokens_100k',
-                default => null,
-            };
-
-            if ($optionValueCode) {
-                $optionValue = $this->productOptionRepository->findOneBy(['code' => 'pack_size'])
-                    ->getValues()->filter(fn ($v) => $v->getCode() === $optionValueCode)->first();
-                if ($optionValue) {
-                    $productVariant->addOptionValue($optionValue);
-                }
-            }
+            // Gérer les options values selon le type de produit
+            $this->handleOptionValues($productVariant, $variantData, $options);
 
             // Créer les prix pour chaque canal
             /** @var ChannelInterface $channel */
@@ -235,14 +188,40 @@ final class CustomProductExampleFactory extends AbstractExampleFactory implement
         }
     }
 
-    private function createChannelPricings(ProductVariantInterface $productVariant, string $channelCode): void
+    private function handleOptionValues(ProductVariantInterface $productVariant, array $variantData, array $options): void
     {
-        /** @var ChannelPricingInterface $channelPricing */
-        $channelPricing = $this->channelPricingFactory->createNew();
-        $channelPricing->setChannelCode($channelCode);
-        $channelPricing->setPrice($this->faker->numberBetween(100, 10000));
+        $tokenValue = $variantData['tokens'];
 
-        $productVariant->addChannelPricing($channelPricing);
+        // Se baser sur les product_options pour déterminer le type de produit
+        $productOptions = $options['product_options'];
+
+        foreach ($productOptions as $productOption) {
+            $optionCode = $productOption->getCode();
+
+            // Si le produit a l'option 'pack_size', c'est un produit tokens
+            if ($optionCode === 'pack_size' && is_numeric($tokenValue)) {
+                $optionValueCode = match ($tokenValue) {
+                    '10000' => 'tokens_10k',
+                    '50000' => 'tokens_50k',
+                    '100000' => 'tokens_100k',
+                    default => null,
+                };
+
+                if ($optionValueCode) {
+                    $optionValue = $productOption->getValues()->filter(fn ($v) => $v->getCode() === $optionValueCode)->first();
+                    if ($optionValue) {
+                        $productVariant->addOptionValue($optionValue);
+                    }
+                }
+            }
+            // Si le produit a l'option 'generation_type', c'est un produit vidéo
+            elseif ($optionCode === 'generation_type' && $tokenValue === 'standard') {
+                $optionValue = $productOption->getValues()->filter(fn ($v) => $v->getCode() === 'standard')->first();
+                if ($optionValue) {
+                    $productVariant->addOptionValue($optionValue);
+                }
+            }
+        }
     }
 
     private function createCustomChannelPricings(ProductVariantInterface $productVariant, string $channelCode, int $price): void
@@ -320,92 +299,5 @@ final class CustomProductExampleFactory extends AbstractExampleFactory implement
         foreach ($locales as $locale) {
             yield $locale->getCode();
         }
-    }
-
-    /**
-     * @param array<string, mixed> $productAttributes
-     *
-     * @return ProductAttributeValueInterface[]
-     */
-    private function setAttributeValues(array $productAttributes): array
-    {
-        $productAttributesValues = [];
-        foreach ($productAttributes as $code => $value) {
-            /** @var ProductAttributeInterface|null $productAttribute */
-            $productAttribute = $this->productAttributeRepository->findOneBy(['code' => $code]);
-
-            Assert::notNull($productAttribute, sprintf('Can not find product attribute with code: "%s"', $code));
-
-            if (!$productAttribute->isTranslatable()) {
-                $productAttributesValues[] = $this->configureProductAttributeValue($productAttribute, null, $value);
-
-                continue;
-            }
-
-            foreach ($this->getLocales() as $localeCode) {
-                $productAttributesValues[] = $this->configureProductAttributeValue($productAttribute, $localeCode, $value);
-            }
-        }
-
-        return $productAttributesValues;
-    }
-
-    private function configureProductAttributeValue(ProductAttributeInterface $productAttribute, ?string $localeCode, mixed $value): ProductAttributeValueInterface
-    {
-        /** @var ProductAttributeValueInterface $productAttributeValue */
-        $productAttributeValue = $this->productAttributeValueFactory->createNew();
-        $productAttributeValue->setAttribute($productAttribute);
-
-        if ($value !== null && in_array($productAttribute->getStorageType(), [AttributeValueInterface::STORAGE_DATE, AttributeValueInterface::STORAGE_DATETIME], true)) {
-            $value = new \DateTime($value);
-        }
-
-        $productAttributeValue->setValue($value ?? $this->getRandomValueForProductAttribute($productAttribute));
-        $productAttributeValue->setLocaleCode($localeCode);
-
-        return $productAttributeValue;
-    }
-
-    /**
-     * @throws \BadMethodCallException
-     */
-    private function getRandomValueForProductAttribute(ProductAttributeInterface $productAttribute): mixed
-    {
-        switch ($productAttribute->getStorageType()) {
-            case AttributeValueInterface::STORAGE_BOOLEAN:
-                return $this->faker->boolean;
-            case AttributeValueInterface::STORAGE_INTEGER:
-                return $this->faker->numberBetween(0, 10000);
-            case AttributeValueInterface::STORAGE_FLOAT:
-                return $this->faker->randomFloat(4, 0, 10000);
-            case AttributeValueInterface::STORAGE_TEXT:
-                return $this->faker->sentence;
-            case AttributeValueInterface::STORAGE_DATE:
-            case AttributeValueInterface::STORAGE_DATETIME:
-                return $this->faker->dateTimeThisCentury;
-            case AttributeValueInterface::STORAGE_JSON:
-                if ($productAttribute->getType() === SelectAttributeType::TYPE) {
-                    if ($productAttribute->getConfiguration()['multiple']) {
-                        return $this->faker->randomElements(
-                            array_keys($productAttribute->getConfiguration()['choices']),
-                            $this->faker->numberBetween(1, count($productAttribute->getConfiguration()['choices'])),
-                        );
-                    }
-
-                    return [$this->faker->randomKey($productAttribute->getConfiguration()['choices'])];
-                }
-                // no break
-            default:
-                throw new \BadMethodCallException();
-        }
-    }
-
-    private function generateProductVariantName(ProductVariantInterface $variant): string
-    {
-        return trim(array_reduce(
-            $variant->getOptionValues()->toArray(),
-            static fn (?string $variantName, ProductOptionValueInterface $variantOption) => $variantName . sprintf('%s ', $variantOption->getValue()),
-            '',
-        ));
     }
 }
