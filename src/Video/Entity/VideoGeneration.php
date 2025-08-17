@@ -28,7 +28,7 @@ use Sylius\Resource\Metadata\Index;
             vars: [
                 'header' => 'app.ui.my_video_generations',
                 'subheader' => 'app.ui.start_generating_message',
-            ]
+            ],
         ),
         new Create(
             path: 'generate',
