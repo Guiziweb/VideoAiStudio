@@ -1,17 +1,22 @@
 framework:
     messenger:
-        # Uncomment this (and the failed transport below) to send failed messages to this transport for later handling.
-        # failure_transport: failed
+        # Transport pour les messages video en échec
+        failure_transport: failed
 
         transports:
-            # https://symfony.com/doc/current/messenger.html#transport-configuration
-            # async: '%env(MESSENGER_TRANSPORT_DSN)%'
-            # failed: 'doctrine://default?queue_name=failed'
-            # sync: 'sync://'
+            # Transport async pour le polling video avec Doctrine
+            video_async: 
+                dsn: 'doctrine://default?queue_name=video_status'
+                retry_strategy:
+                    max_retries: 3
+                    delay: 1000
+                    multiplier: 2
+            # Transport pour les messages échoués
+            failed: 'doctrine://default?queue_name=failed'
 
         routing:
-            # Route your messages to the transports
-            # 'App\Message\YourMessage': async
+            # Routage des messages video vers le transport async
+            'App\Video\Message\CheckVideoStatusMessage': video_async
 
 # when@test:
 #    framework:

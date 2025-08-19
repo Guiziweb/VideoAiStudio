@@ -16,6 +16,9 @@ class ProductVariant extends BaseProductVariant implements ProductVariantInterfa
 {
     use RecurringProductVariantTrait;
 
+    #[ORM\Column(type: 'integer', nullable: true)]
+    private ?int $tokenAmount = null;
+
     protected function createTranslation(): ProductVariantTranslationInterface
     {
         return new ProductVariantTranslation();
@@ -35,5 +38,17 @@ class ProductVariant extends BaseProductVariant implements ProductVariantInterfa
         $translation = $this->getTranslation();
 
         $translation->setShortDescription($shortDescription);
+    }
+
+    public function getTokenAmount(): ?int
+    {
+        return $this->tokenAmount;
+    }
+
+    public function setTokenAmount(?int $tokenAmount): self
+    {
+        $this->tokenAmount = $tokenAmount;
+
+        return $this;
     }
 }

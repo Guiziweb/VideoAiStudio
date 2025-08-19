@@ -11,7 +11,7 @@ trait HasWalletTrait
     #[ORM\OneToOne(mappedBy: 'customer', targetEntity: Wallet::class, cascade: ['persist', 'remove'])]
     private ?Wallet $wallet = null;
 
-    public function getWallet(): ?Wallet
+    public function getWallet(): Wallet
     {
         return $this->wallet;
     }

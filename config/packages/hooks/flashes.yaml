@@ -1,6 +1,5 @@
 sylius_twig_hooks:
     hooks:        
-        # Override default flashes with improved styling
         'sylius_shop.base.header.flashes':
             content:
                 template: 'shared/flashes_improved.html.twig'

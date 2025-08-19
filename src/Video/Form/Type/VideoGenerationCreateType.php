@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Video\Form\Type;
 
 use App\Video\Entity\VideoGeneration;
-use App\Video\Validator\Constraints\SufficientTokens;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -43,9 +42,6 @@ final class VideoGenerationCreateType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => VideoGeneration::class,
-            'constraints' => [
-                new SufficientTokens(),
-            ],
         ]);
     }
 }

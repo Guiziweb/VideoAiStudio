@@ -1,0 +1,10 @@
+# Flash messages API routes
+app_flash_messages:
+    path: /api/flash-messages
+    controller: App\Shared\Controller\FlashMessageController::getFlashMessages
+    methods: [GET]
+
+app_flash_messages_partial:
+    path: /flash-messages-partial  
+    controller: App\Shared\Controller\FlashMessageController::getFlashMessagesPartial
+    methods: [GET]

@@ -17,45 +17,46 @@
                 <div class="card h-100 shadow border-0 overflow-hidden">
                     <!-- Video Thumbnail/Preview -->
                     <div class="position-relative">
-                        {% if generation.status == 'completed' and generation.videoUrl %}
+                        {% if generation.isCompleted and generation.videoStorageUrl %}
                             <div class="ratio ratio-16x9">
                                 <video controls class="object-fit-cover">
-                                    <source src="{{ generation.videoUrl }}" type="video/mp4">
+                                    <source src="{{ generation.videoStorageUrl }}" type="video/mp4">
                                     {{ 'app.ui.video_not_supported'|trans }}
                                 </video>
                             </div>
                             <div class="position-absolute top-0 end-0 m-2">
                                 <span class="badge bg-success">
                                     {{ ux_icon('tabler:check', { class: 'icon icon-xs me-1' }) }}
-                                    {{ 'app.ui.video_status.completed'|trans }}
+                                    {{ ('app.ui.video_status.' ~ generation.customerStatusLabel)|trans }}
                                 </span>
                             </div>
-                        {% elseif generation.status == 'processing' %}
+                        {% elseif generation.isProcessing or generation.isSubmitted %}
+                            {# Client voit "En cours" pour submitted et processing #}
                             <div class="ratio ratio-16x9 bg-dark"></div>
                             <div class="position-absolute top-0 end-0 m-2">
                                 <span class="badge bg-primary">
                                     <div class="spinner-border spinner-border-sm me-1" role="status" style="width: 0.75rem; height: 0.75rem;">
                                         <span class="visually-hidden">{{ 'app.ui.video_status.processing'|trans }}</span>
                                     </div>
-                                    {{ 'app.ui.video_status.processing'|trans }}
+                                    {{ ('app.ui.video_status.' ~ generation.customerStatusLabel)|trans }}
                                 </span>
                             </div>
-                        {% elseif generation.status == 'pending' %}
+                        {% elseif generation.isCreated %}
                             <div class="ratio ratio-16x9 bg-dark"></div>
                             <div class="position-absolute top-0 end-0 m-2">
                                 <span class="badge bg-warning">
                                     <div class="spinner-border spinner-border-sm me-1" role="status" style="width: 0.75rem; height: 0.75rem;">
-                                        <span class="visually-hidden">{{ 'app.ui.video_status.pending'|trans }}</span>
+                                        <span class="visually-hidden">{{ 'app.ui.video_status.created'|trans }}</span>
                                     </div>
-                                    {{ 'app.ui.video_status.pending'|trans }}
+                                    {{ ('app.ui.video_status.' ~ generation.customerStatusLabel)|trans }}
                                 </span>
                             </div>
-                        {% elseif generation.status == 'failed' %}
+                        {% elseif generation.isFailed %}
                             <div class="ratio ratio-16x9 bg-dark"></div>
                             <div class="position-absolute top-0 end-0 m-2">
                                 <span class="badge bg-danger">
                                     {{ ux_icon('tabler:x', { class: 'icon icon-xs me-1' }) }}
-                                    {{ 'app.ui.video_status.failed'|trans }}
+                                    {{ ('app.ui.video_status.' ~ generation.customerStatusLabel)|trans }}
                                 </span>
                             </div>
                         {% else %}
@@ -65,7 +66,7 @@
                             <div class="position-absolute top-0 end-0 m-2">
                                 <span class="badge bg-secondary">
                                     {{ ux_icon('tabler:video', { class: 'icon icon-xs me-1' }) }}
-                                    {{ generation.status }}
+                                    {{ generation.workflowState }}
                                 </span>
                             </div>
                         {% endif %}
@@ -81,8 +82,8 @@
                                 </small>
                                 
                                 <div class="d-flex align-items-center gap-1">
-                                    {% if generation.status == 'completed' and generation.videoUrl %}
-                                        <a href="{{ generation.videoUrl }}" download class="btn btn-xs btn-link text-muted p-0">
+                                    {% if generation.isCompleted and generation.videoStorageUrl %}
+                                        <a href="{{ generation.videoStorageUrl }}" download class="btn btn-xs btn-link text-muted p-0">
                                             {{ ux_icon('tabler:download', { class: 'icon icon-xs' }) }}
                                         </a>
                                     {% endif %}

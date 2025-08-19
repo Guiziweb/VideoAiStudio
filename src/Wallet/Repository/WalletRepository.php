@@ -21,14 +21,4 @@ class WalletRepository extends ServiceEntityRepository implements RepositoryInte
     {
         parent::__construct($registry, Wallet::class);
     }
-
-    public function findOneByCustomerId(int $customerId): ?Wallet
-    {
-        return $this->createQueryBuilder('w')
-            ->join('w.customer', 'c')
-            ->andWhere('c.id = :customerId')
-            ->setParameter('customerId', $customerId)
-            ->getQuery()
-            ->getOneOrNullResult();
-    }
 }

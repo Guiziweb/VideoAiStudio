@@ -55,7 +55,6 @@ final readonly class PayWalletHttpResponseProvider implements HttpResponseProvid
         }
 
         if ($paymentRequest->getState() === PaymentRequestInterface::STATE_FAILED) {
-            // Rediriger vers le choix du paiement
             return new RedirectResponse(
                 $this->urlGenerator->generate('sylius_shop_checkout_select_payment', [
                     'tokenValue' => $order->getTokenValue(),
@@ -63,7 +62,6 @@ final readonly class PayWalletHttpResponseProvider implements HttpResponseProvid
             );
         }
 
-        // État en cours ou nouveau - rediriger vers la page de paiement
         return new RedirectResponse(
             $this->urlGenerator->generate('sylius_shop_checkout_complete'),
         );

@@ -1,9 +1,0 @@
-# Configuration du système de paiement découplé
-services:
-    # Interface de paiement -> implémentation wallet
-    App\Shared\Payment\PaymentProviderInterface: '@App\Wallet\Service\WalletPaymentProvider'
-    
-    # Service wallet payment provider
-    App\Wallet\Service\WalletPaymentProvider:
-        arguments:
-            $entityManager: '@doctrine.orm.entity_manager'

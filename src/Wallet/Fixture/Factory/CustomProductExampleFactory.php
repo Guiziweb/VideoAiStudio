@@ -154,6 +154,11 @@ final class CustomProductExampleFactory extends AbstractExampleFactory implement
             $variantName = $variantData['name'] ?? sprintf('%s Tokens', $variantData['tokens']);
             $productVariant->setName($variantName);
 
+            // Stocker le nombre de tokens dans le champ dédié
+            if (isset($variantData['tokens']) && is_numeric($variantData['tokens'])) {
+                $productVariant->setTokenAmount((int) $variantData['tokens']);
+            }
+
             // Ajouter la description courte si disponible
             if (isset($variantData['short_description'])) {
                 foreach ($this->getLocales() as $localeCode) {

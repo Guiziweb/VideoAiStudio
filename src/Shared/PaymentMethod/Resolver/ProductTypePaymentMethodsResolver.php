@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Shared\PaymentMethod\Resolver;
 
 use App\Video\Enum\ProductCode as VideoProductCode;
+use App\Wallet\Enum\PaymentMethodCode;
 use App\Wallet\Enum\ProductCode as WalletProductCode;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\PaymentInterface;
@@ -41,12 +42,12 @@ final readonly class ProductTypePaymentMethodsResolver implements PaymentMethods
         return array_filter($methods, function ($method) use ($hasTokenPacks, $hasVideoGenerationProducts) {
             // Si le panier contient des token packs, autoriser toutes les méthodes sauf wallet
             if ($hasTokenPacks) {
-                return $method->getCode() !== 'wallet';
+                return $method->getCode() !== PaymentMethodCode::WALLET->value;
             }
 
             // Si le panier contient des produits de génération vidéo, autoriser uniquement wallet
             if ($hasVideoGenerationProducts) {
-                return $method->getCode() === 'wallet';
+                return $method->getCode() === PaymentMethodCode::WALLET->value;
             }
 
             // Par défaut, toutes les méthodes sont disponibles (panier vide ou autres produits)

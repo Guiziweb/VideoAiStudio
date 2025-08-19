@@ -29,9 +29,7 @@
 
                         <div class="mb-3">
                             <div class="display-4 fw-bold text-primary">
-                                {% for option_value in variant.optionValues %}
-                                    {{ option_value.value }}
-                                {% endfor %}
+                                {{ variant.tokenAmount|number_format }}
                             </div>
                             <div class="text-primary">tokens</div>
                         </div>

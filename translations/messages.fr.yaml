@@ -36,6 +36,7 @@ app:
         check_balance_in_header: "Consultez votre solde dans l'en-tête"
         insufficient_balance: "Solde insuffisant"
         need_more_tokens_message: "Vous n'avez pas assez de tokens pour générer une vidéo."
+        insufficient_funds_message: "Vous n'avez pas assez de tokens pour générer cette vidéo. Veuillez acheter plus de tokens."
         video_prompt_label: "Description de la vidéo à générer"
         video_prompt_placeholder: "Commencez à générer vos premières vidéos IA !"
         prompt_help_text: "Entre 10 et 1000 caractères. Soyez précis dans votre description."
@@ -52,11 +53,13 @@ app:
         cost: "Coût"
         view_video: "Voir la vidéo"
         video_status:
+            created: "En préparation"
             pending: "En attente"
-            processing: "En cours"
-            completed: "Terminé"
-            failed: "Échec"
-            refunded: "Remboursé"
+            submitted: "En cours"  # Simplifié pour le client
+            processing: "Génération en cours"  # Unifié avec submitted pour le client
+            completed: "Terminée"
+            failed: "Échec de génération"
+            refunded: "Remboursée"
         form:
             prompt_required: "Le prompt ne peut pas être vide."
             prompt_min_length: "Le prompt doit contenir au moins {{ limit }} caractères."

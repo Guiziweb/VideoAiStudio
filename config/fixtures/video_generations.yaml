@@ -7,83 +7,26 @@ sylius_fixtures:
                 video_generations:
                     options:
                         generations:
-                            -   customer_email: 'user@aivideo.com'
-                                prompt: 'Un chat noir qui joue avec une pelote de laine rouge dans un salon moderne'
-                                status: 'completed'
-                                video_url: 'https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4'
-
-                            -   customer_email: 'user@aivideo.com'
-                                prompt: 'Un paysage de montagne au coucher du soleil avec des nuages dorés'
-                                status: 'processing'
-
-                            -   customer_email: 'user@aivideo.com'
-                                prompt: 'Une danse de robots futuristes dans une ville cyberpunk illuminée'
-                                status: 'pending'
-
-                            -   customer_email: 'user@aivideo.com'
-                                prompt: 'Des dauphins qui sautent dans un océan cristallin avec un arc-en-ciel'
-                                status: 'completed'
-                                video_url: 'https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_2mb.mp4'
-
-                            -   customer_email: 'user@aivideo.com'
-                                prompt: 'Un jardin japonais avec des cerisiers en fleurs et un ruisseau'
-                                status: 'processing'
-
-                            -   customer_email: 'user@aivideo.com'
-                                prompt: 'Une forêt enchantée avec des fées lumineuses et des champignons magiques'
-                                status: 'completed'
-                                video_url: 'https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4'
-
-                            -   customer_email: 'user@aivideo.com'
-                                prompt: 'Des flamingos roses dans un lac rose au coucher du soleil'
-                                status: 'failed'
-
-                            -   customer_email: 'user@aivideo.com'
-                                prompt: 'Un dragon majestueux volant au-dessus de châteaux médiévaux'
-                                status: 'completed'
-                                video_url: 'https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_2mb.mp4'
-
-                            -   customer_email: 'user@aivideo.com'
-                                prompt: 'Une ville futuriste avec des voitures volantes et des gratte-ciels transparents'
-                                status: 'processing'
-
-                            -   customer_email: 'user@aivideo.com'
-                                prompt: 'Des aurores boréales dansant au-dessus d une toundra enneigée'
-                                status: 'completed'
-                                video_url: 'https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4'
-
-                            -   customer_email: 'user@aivideo.com'
-                                prompt: 'Un marché oriental coloré avec des épices et des tissus vibrants'
-                                status: 'pending'
-
-                            -   customer_email: 'user@aivideo.com'
-                                prompt: 'Des baleines géantes nageant dans un océan cosmique étoilé'
-                                status: 'completed'
-                                video_url: 'https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_2mb.mp4'
-
-                            -   customer_email: 'user@aivideo.com'
-                                prompt: 'Un laboratoire steampunk avec des engrenages et de la vapeur'
-                                status: 'processing'
-
-                            -   customer_email: 'user@aivideo.com'
-                                prompt: 'Des papillons multicolores dans une prairie de fleurs sauvages'
-                                status: 'completed'
-                                video_url: 'https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4'
-
-                            -   customer_email: 'user@aivideo.com'
-                                prompt: 'Un phénix rouge et or renaissant de ses cendres dans un temple antique'
-                                status: 'failed'
-
-                            -   customer_email: 'user@aivideo.com'
-                                prompt: 'Des méduses translucides flottant dans un aquarium géant futuriste'
-                                status: 'completed'
-                                video_url: 'https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_2mb.mp4'
-
-                            -   customer_email: 'user@aivideo.com'
-                                prompt: 'Un glacier arctique se reflétant dans une eau cristalline avec des pingouins'
-                                status: 'processing'
-
-                            -   customer_email: 'user@aivideo.com'
-                                prompt: 'Des étoiles filantes traversant un ciel nocturne au-dessus d un désert'
-                                status: 'completed'
-                                video_url: 'https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4'
+                            # 5 générations simples correspondant aux 5 orders
+                            - customer_email: 'user@aivideo.com'
+                              prompt: 'Un chat noir qui joue avec une pelote de laine rouge'
+                              status: 'completed'
+                              video_url: 'https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4'
+                              
+                            - customer_email: 'user@aivideo.com'
+                              prompt: 'Un paysage de montagne au coucher du soleil'
+                              status: 'processing'
+                              
+                            - customer_email: 'user@aivideo.com'
+                              prompt: 'Une danse de robots futuristes'
+                              status: 'submitted'
+                              
+                            - customer_email: 'user@aivideo.com'
+                              prompt: 'Des dauphins qui sautent dans un océan cristallin'
+                              status: 'completed'
+                              video_url: 'https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_2mb.mp4'
+                              
+                            - customer_email: 'user@aivideo.com'
+                              prompt: 'Des flamingos roses dans un lac au coucher du soleil'
+                              status: 'failed'
+                              error_message: 'Provider timeout'

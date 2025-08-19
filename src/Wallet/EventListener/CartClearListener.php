@@ -22,6 +22,7 @@ final readonly class CartClearListener
         }
 
         $cart = $addToCartCommand->getCart();
+
         $orderItem = $addToCartCommand->getCartItem();
 
         $productVariant = $orderItem->getVariant();
@@ -34,10 +35,7 @@ final readonly class CartClearListener
             return;
         }
 
-        // Si on ajoute un produit token, vider le panier d'abord
         if ($product->getCode() === ProductCode::TOKEN_PACKS->value) {
-            $itemCount = $cart->getItems()->count();
-
             foreach ($cart->getItems() as $existingItem) {
                 $cart->removeItem($existingItem);
             }

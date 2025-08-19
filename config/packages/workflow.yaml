@@ -1,2 +1,52 @@
 framework:
-    workflows: null
+    workflows:
+        !php/const App\Video\VideoGenerationTransitions::GRAPH:
+            type: 'state_machine'
+            audit_trail:
+                enabled: true
+            marking_store:
+                type: 'method'
+                property: 'workflowState'
+            supports:
+                - App\Video\Entity\VideoGeneration
+            initial_marking: !php/const App\Video\VideoGenerationTransitions::STATE_CREATED
+            places:
+                - !php/const App\Video\VideoGenerationTransitions::STATE_CREATED
+                - !php/const App\Video\VideoGenerationTransitions::STATE_SUBMITTED
+                - !php/const App\Video\VideoGenerationTransitions::STATE_PROCESSING
+                - !php/const App\Video\VideoGenerationTransitions::STATE_COMPLETED
+                - !php/const App\Video\VideoGenerationTransitions::STATE_FAILED
+                - !php/const App\Video\VideoGenerationTransitions::STATE_REFUNDED
+            transitions:
+                !php/const App\Video\VideoGenerationTransitions::TRANSITION_SUBMIT:
+                    from: !php/const App\Video\VideoGenerationTransitions::STATE_CREATED
+                    to: !php/const App\Video\VideoGenerationTransitions::STATE_SUBMITTED
+                    metadata:
+                        title: 'Submit to video generation provider'
+                        description: 'Send the video generation request to external provider'
+                !php/const App\Video\VideoGenerationTransitions::TRANSITION_START_PROCESSING:
+                    from: !php/const App\Video\VideoGenerationTransitions::STATE_SUBMITTED
+                    to: !php/const App\Video\VideoGenerationTransitions::STATE_PROCESSING
+                    metadata:
+                        title: 'Start processing'
+                        description: 'Provider confirms video generation has started'
+                !php/const App\Video\VideoGenerationTransitions::TRANSITION_COMPLETE:
+                    from: !php/const App\Video\VideoGenerationTransitions::STATE_PROCESSING
+                    to: !php/const App\Video\VideoGenerationTransitions::STATE_COMPLETED
+                    metadata:
+                        title: 'Complete generation'
+                        description: 'Video generation completed successfully'
+                !php/const App\Video\VideoGenerationTransitions::TRANSITION_FAIL:
+                    from: 
+                        - !php/const App\Video\VideoGenerationTransitions::STATE_SUBMITTED
+                        - !php/const App\Video\VideoGenerationTransitions::STATE_PROCESSING
+                    to: !php/const App\Video\VideoGenerationTransitions::STATE_FAILED
+                    metadata:
+                        title: 'Mark as failed'
+                        description: 'Video generation failed or timed out'
+                !php/const App\Video\VideoGenerationTransitions::TRANSITION_REFUND:
+                    from: !php/const App\Video\VideoGenerationTransitions::STATE_FAILED
+                    to: !php/const App\Video\VideoGenerationTransitions::STATE_REFUNDED
+                    metadata:
+                        title: 'Refund tokens'
+                        description: 'Refund user tokens after failure'

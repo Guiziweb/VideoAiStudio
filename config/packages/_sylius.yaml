@@ -7,6 +7,8 @@ imports:
 
     - { resource: "../parameters.yaml" }
     - { resource: "../grids/*.yaml" }
+   
+   
     # Configuration fixtures dans l'ordre de dépendance
    
     - { resource: "../fixtures/locale.yaml" }
@@ -23,8 +25,8 @@ imports:
     - { resource: "../fixtures/token_product.yaml" }
     - { resource: "../fixtures/digital_services.yaml" }
     - { resource: "../fixtures/video_generation_product.yaml" }
-    - { resource: "../fixtures/wallet_data.yaml" }
     - { resource: "../fixtures/video_generations.yaml" }
+    - { resource: "../fixtures/wallet_data.yaml" }
 
 parameters:
     sylius_core.public_dir: '%kernel.project_dir%/public'
@@ -282,5 +284,3 @@ sylius_user:
             user:
                 classes:
                     model: App\Entity\User\UserOAuth
-
-# Hooks déplacés dans sylius_twig_hooks.yaml

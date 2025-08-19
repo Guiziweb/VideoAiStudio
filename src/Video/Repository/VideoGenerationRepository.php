@@ -6,7 +6,7 @@ namespace App\Video\Repository;
 
 use App\Entity\Customer\Customer;
 use App\Video\Entity\VideoGeneration;
-use App\Video\Enum\VideoGenerationStatus;
+use App\Video\VideoGenerationTransitions;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Sylius\Bundle\ResourceBundle\Doctrine\ORM\ResourceRepositoryTrait;
@@ -43,22 +43,9 @@ class VideoGenerationRepository extends ServiceEntityRepository implements Repos
     public function findPendingGenerations(): array
     {
         return $this->createQueryBuilder('vg')
-            ->where('vg.status = :status')
-            ->setParameter('status', VideoGenerationStatus::PROCESSING->value)
-            ->getQuery()
-            ->getResult();
-    }
-
-    /**
-     * @return VideoGeneration[]
-     */
-    public function findLatestByCustomer(Customer $customer, int $limit = 10): array
-    {
-        return $this->createQueryBuilder('vg')
-            ->where('vg.customer = :customer')
-            ->setParameter('customer', $customer)
+            ->where('vg.workflowState = :status')
+            ->setParameter('status', VideoGenerationTransitions::STATE_CREATED)
             ->orderBy('vg.createdAt', 'DESC')
-            ->setMaxResults($limit)
             ->getQuery()
             ->getResult();
     }

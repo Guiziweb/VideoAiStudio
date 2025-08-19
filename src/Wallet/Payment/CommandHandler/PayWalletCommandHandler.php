@@ -60,22 +60,22 @@ final readonly class PayWalletCommandHandler
         }
 
         $wallet = $customer->getWallet();
-        if (!$wallet instanceof Wallet) {
-            throw new \InvalidArgumentException('Customer must have a wallet');
-        }
 
         $amount = $payment->getAmount();
         if ($amount === null) {
             throw new \InvalidArgumentException('Payment amount cannot be null');
         }
 
-        if (!$wallet->canAfford($amount)) {
-            // Stocker la raison de l'échec dans les détails du paiement
-            $payment->setDetails([
-                'message' => 'app.ui.wallet_insufficient_funds',
-            ]);
+        // D'abord passer le payment de 'cart' à 'new'
+        if ($this->paymentStateMachine->can($payment, PaymentTransitions::TRANSITION_CREATE)) {
+            $this->paymentStateMachine->apply($payment, PaymentTransitions::TRANSITION_CREATE);
+        }
 
-            // Marquer le payment comme failed
+        // Puis selon le résultat métier
+        if (!$wallet->canAfford($amount)) {
+            // CAS D'ÉCHEC - Fonds insuffisants
+            $payment->setDetails(['error' => 'Insufficient funds']);
+
             if ($this->paymentStateMachine->can($payment, PaymentTransitions::TRANSITION_FAIL)) {
                 $this->paymentStateMachine->apply($payment, PaymentTransitions::TRANSITION_FAIL);
             }
@@ -84,25 +84,20 @@ final readonly class PayWalletCommandHandler
             if ($this->paymentRequestStateMachine->can($paymentRequest, PaymentRequestTransitions::TRANSITION_FAIL)) {
                 $this->paymentRequestStateMachine->apply($paymentRequest, PaymentRequestTransitions::TRANSITION_FAIL);
             }
+        } else {
+            // CAS DE SUCCÈS - Débiter le wallet
+            $wallet->debit($amount);
+            $this->entityManager->persist($wallet);
+            $this->entityManager->flush();
 
-            return;
-        }
+            if ($this->paymentStateMachine->can($payment, PaymentTransitions::TRANSITION_COMPLETE)) {
+                $this->paymentStateMachine->apply($payment, PaymentTransitions::TRANSITION_COMPLETE);
+            }
 
-        // Débiter le wallet (crée automatiquement la transaction)
-        $transaction = $wallet->debit($amount, (string) $payment->getId());
-
-        $this->entityManager->persist($wallet);
-        $this->entityManager->persist($transaction);
-        $this->entityManager->flush();
-
-        // Marquer le payment comme completed
-        if ($this->paymentStateMachine->can($payment, PaymentTransitions::TRANSITION_COMPLETE)) {
-            $this->paymentStateMachine->apply($payment, PaymentTransitions::TRANSITION_COMPLETE);
-        }
-
-        // Marquer la request comme completed
-        if ($this->paymentRequestStateMachine->can($paymentRequest, PaymentRequestTransitions::TRANSITION_COMPLETE)) {
-            $this->paymentRequestStateMachine->apply($paymentRequest, PaymentRequestTransitions::TRANSITION_COMPLETE);
+            // Marquer la request comme completed
+            if ($this->paymentRequestStateMachine->can($paymentRequest, PaymentRequestTransitions::TRANSITION_COMPLETE)) {
+                $this->paymentRequestStateMachine->apply($paymentRequest, PaymentRequestTransitions::TRANSITION_COMPLETE);
+            }
         }
     }
 }

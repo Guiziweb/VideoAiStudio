@@ -1,4 +1,6 @@
 parameters:
+    # Video generation status check delay (in milliseconds)
+    app.video.status_check_delay: 500  # 30 seconds
 
 services:
     # Default configuration for services in *this* file
@@ -29,6 +31,11 @@ services:
         arguments:
             $paymentRequestStateMachine: '@state_machine.sylius_payment_request'
             $paymentStateMachine: '@state_machine.sylius_payment'
+
+    # Video Provider - only this needs explicit configuration
+    App\IA\Provider\VideoGenerationProviderInterface: '@App\IA\Provider\MockProvider'
+    App\IA\Provider\MockProvider: ~
+
     
 
 

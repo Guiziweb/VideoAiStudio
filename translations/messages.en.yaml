@@ -52,7 +52,9 @@ app:
         cost: "Cost"
         view_video: "View video"
         video_status:
+            created: "Preparing"
             pending: "Pending"
+            submitted: "In progress"
             processing: "Processing"
             completed: "Completed"
             failed: "Failed"

@@ -22,9 +22,10 @@ final readonly class PayWalletCommandProvider implements PaymentRequestCommandPr
         }
 
         $gatewayConfig = $payment->getMethod()?->getGatewayConfig();
+        $factoryName = $gatewayConfig?->getFactoryName();
+        $action = $paymentRequest->getAction();
 
-        return $paymentRequest->getAction() === PaymentRequestInterface::ACTION_CAPTURE &&
-            $gatewayConfig?->getFactoryName() === 'wallet';
+        return $action === PaymentRequestInterface::ACTION_CAPTURE && $factoryName === 'wallet';
     }
 
     public function provide(PaymentRequestInterface $paymentRequest): object

@@ -1,0 +1,12 @@
+# Orders pour les achats de token packs
+sylius_fixtures:
+    suites:
+        ai_video_suite:
+            fixtures:
+                # Orders de token packs pour les transactions wallet
+                order:
+                    options:
+                        amount: 5
+                        channel: 'ai_video_fr'
+                        customer: 'user@aivideo.com'
+                        fulfilled: true
