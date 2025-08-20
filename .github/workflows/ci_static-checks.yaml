@@ -93,5 +93,8 @@ jobs:
                 if: matrix.php == '8.2'
                 run: composer require ext-random --no-update --no-scripts --no-interaction
 
+            -   name: "Setup environment"
+                run: cp .env.example .env
+
             -   name: "Run static analysis"
                 run: make static
