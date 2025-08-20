@@ -26,8 +26,8 @@ doctrine:
         auto_mapping: true
         mappings:
             App:
-                type: attribute
                 is_bundle: false
+                type: attribute
                 dir: '%kernel.project_dir%/src/Shared/Entity'
                 prefix: 'App\Shared\Entity'
                 alias: App

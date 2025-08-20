@@ -15,7 +15,6 @@ use App\IA\Provider\MockProvider;
 use App\Video\Entity\VideoGeneration;
 use App\Video\Service\VideoWorkflowManager;
 use App\Video\VideoGenerationTransitions;
-use Doctrine\Common\DataFixtures\Purger\ORMPurger;
 use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
@@ -36,10 +35,8 @@ final class VideoWorkflowIntegrationTest extends KernelTestCase
         $this->workflow = self::getContainer()->get('state_machine.video_generation');
         $this->workflowManager = self::getContainer()->get(VideoWorkflowManager::class);
 
-        // Clean database before each test to ensure isolation
-        $purger = new ORMPurger($this->entityManager);
-        $purger->purge();
-        $this->entityManager->clear();
+        // Start transaction for test isolation
+        $this->entityManager->beginTransaction();
     }
 
     public function testCompleteWorkflowFromCreatedToCompleted(): void
@@ -307,9 +304,10 @@ final class VideoWorkflowIntegrationTest extends KernelTestCase
 
     protected function tearDown(): void
     {
-        // Clean up database after each test using Doctrine's ORMPurger
-        $purger = new ORMPurger($this->entityManager);
-        $purger->purge();
+        // Rollback transaction to clean up any test data
+        if ($this->entityManager->getConnection()->isTransactionActive()) {
+            $this->entityManager->rollback();
+        }
         $this->entityManager->clear();
 
         parent::tearDown();
