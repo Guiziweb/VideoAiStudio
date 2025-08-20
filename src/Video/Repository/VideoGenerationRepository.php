@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Video\Repository;
 
-use App\Entity\Customer\Customer;
+use App\Shared\Entity\Customer\Customer;
 use App\Video\Entity\VideoGeneration;
 use App\Video\VideoGenerationTransitions;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Wallet\Fixture;
 
-use App\Entity\Customer\Customer;
+use App\Shared\Entity\Customer\Customer;
 use Doctrine\ORM\EntityManagerInterface;
 use Sylius\Bundle\FixturesBundle\Fixture\AbstractFixture;
 use Sylius\Component\Core\Repository\CustomerRepositoryInterface;

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Video\Factory;
 
-use App\Entity\Product\Product;
+use App\Shared\Entity\Product\Product;
 use App\Video\Entity\VideoGeneration;
 use App\Video\Enum\ProductCode;
 use Doctrine\ORM\EntityManagerInterface;

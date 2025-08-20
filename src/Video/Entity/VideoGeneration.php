@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Video\Entity;
 
-use App\Entity\Customer\Customer;
+use App\Shared\Entity\Customer\Customer;
 use App\Shared\Provider\ShopperVideoGenerationProvider;
 use App\Video\Entity\Trait\WorkflowStatusTrait;
 use App\Video\Form\Type\VideoGenerationCreateType;

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Video\State;
 
-use App\Entity\Customer\Customer;
+use App\Shared\Entity\Customer\Customer;
 use App\Video\Entity\VideoGeneration;
 use Sylius\Component\Core\Context\ShopperContextInterface;
 use Sylius\Resource\Context\Context;

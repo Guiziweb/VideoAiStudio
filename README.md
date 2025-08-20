@@ -14,6 +14,7 @@
 git clone https://github.com/guiziweb/videoai-studio.git && cd videoai-studio
 make init        # Installation complète (deps + backend + frontend)
 make serve       # Serveur Symfony sur http://localhost:8000
+make messenger   # Pour traiter les videos
 ```
 
 ### Commandes utiles

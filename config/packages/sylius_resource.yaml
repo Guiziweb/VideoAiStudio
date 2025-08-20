@@ -3,7 +3,7 @@ sylius_resource:
     # Configure the mapping for your resources
     mapping:
         paths:
-            - '%kernel.project_dir%/src/Entity'
+            - '%kernel.project_dir%/src/Shared/Entity'
             - '%kernel.project_dir%/src/Wallet/Entity'
             - '%kernel.project_dir%/src/Video/Entity'
 

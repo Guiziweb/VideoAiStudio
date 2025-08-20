@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace App\Wallet\Payment\CommandHandler;
 
-use App\Entity\Customer\Customer;
-use App\Wallet\Entity\Wallet;
+use App\Shared\Entity\Customer\Customer;
 use App\Wallet\Payment\Command\PayWalletCommand;
 use Doctrine\ORM\EntityManagerInterface;
 use Sylius\Component\Core\Model\OrderInterface;

@@ -263,7 +263,7 @@ final class VideoWorkflowIntegrationTest extends KernelTestCase
 
         // We need to create a mock customer and order item for persistence
         // For integration tests, we'll create real entities
-        $customer = new \App\Entity\Customer\Customer();
+        $customer = new \App\Shared\Entity\Customer\Customer();
         $customer->setEmail('test_' . uniqid() . '@example.com');
         $customer->setFirstName('Test');
         $customer->setLastName('User');
@@ -271,10 +271,10 @@ final class VideoWorkflowIntegrationTest extends KernelTestCase
         $this->entityManager->persist($customer);
 
         // Create a product and product variant for the order item
-        $product = new \App\Entity\Product\Product();
+        $product = new \App\Shared\Entity\Product\Product();
         $product->setCode('TEST_PRODUCT_' . uniqid());
 
-        $productVariant = new \App\Entity\Product\ProductVariant();
+        $productVariant = new \App\Shared\Entity\Product\ProductVariant();
         $productVariant->setCode('TEST_VARIANT_' . uniqid());
         $productVariant->setProduct($product);
         $product->addVariant($productVariant);
@@ -283,12 +283,12 @@ final class VideoWorkflowIntegrationTest extends KernelTestCase
         $this->entityManager->persist($productVariant);
 
         // Create a minimal order and order item for the relationship
-        $order = new \App\Entity\Order\Order();
+        $order = new \App\Shared\Entity\Order\Order();
         $order->setCurrencyCode('EUR');
         $order->setLocaleCode('en_US');
         $order->setCustomer($customer);
 
-        $orderItem = new \App\Entity\Order\OrderItem();
+        $orderItem = new \App\Shared\Entity\Order\OrderItem();
         $orderItem->setOrder($order);
         $orderItem->setVariant($productVariant);
         $orderItem->setUnitPrice(1000);

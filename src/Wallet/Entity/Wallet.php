@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Wallet\Entity;
 
-use App\Entity\Customer\Customer;
+use App\Shared\Entity\Customer\Customer;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Sylius\Component\Resource\Model\ResourceInterface;

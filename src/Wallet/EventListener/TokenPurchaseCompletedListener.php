@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Wallet\EventListener;
 
-use App\Entity\Customer\Customer;
-use App\Entity\Product\ProductVariant;
+use App\Shared\Entity\Customer\Customer;
+use App\Shared\Entity\Product\ProductVariant;
 use App\Wallet\Enum\ProductCode;
 use Doctrine\ORM\EntityManagerInterface;
 use Sylius\Component\Core\Model\OrderInterface;
