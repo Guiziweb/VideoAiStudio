@@ -14,6 +14,9 @@ phpstan: ## Analyse statique du code avec PHPStan
 ecs: ## Vérifie et corrige le code style
 	vendor/bin/ecs check --fix
 
+security: ## Vérifie les vulnérabilités de sécurité
+	symfony security:check
+
 install: ## Installe les dépendances PHP
 	composer install --no-interaction --no-scripts
 
@@ -49,11 +52,12 @@ clean: ## Supprime les conteneurs et volumes Docker
 # Composite commands
 init: install backend frontend ## Installation complète du projet
 
-lint:
-	bin/console lint:twig templates/
-	bin/console lint:yaml config/
+lint: ## Vérifie la syntaxe des templates et configuration
+	bin/console lint:twig templates/ src/
+	bin/console lint:yaml config/ src/
+	bin/console lint:container
 
-static: install lint phpstan ecs ## Analyse statique complète
+static: install lint security phpstan ecs ## Analyse statique complète
 
 ci: init static phpunit ## Pipeline CI complète
 

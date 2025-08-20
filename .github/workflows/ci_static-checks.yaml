@@ -93,27 +93,5 @@ jobs:
                 if: matrix.php == '8.2'
                 run: composer require ext-random --no-update --no-scripts --no-interaction
 
-            -   name: "Setup environment"
-                run: cp .env.example .env
-
-            -   name: "Install dependencies"
-                run: composer update --no-interaction --no-scripts
-
-#            -   name: "Validate composer.json"
-#                run: composer validate --strict --no-check-version
-
-            -   name: "Check for security vulnerabilities"
-                run: symfony security:check
-                continue-on-error: true
-
-            -   name: "Validate Twig templates"
-                run: bin/console lint:twig src
-
-            -   name: "Validate Container"
-                run: bin/console lint:container
-
-            -   name: Validate Yaml files
-                run: bin/console lint:yaml src
-
-            -   name: Run PHPStan
-                run: vendor/bin/phpstan analyse
+            -   name: "Run static analysis"
+                run: make static
