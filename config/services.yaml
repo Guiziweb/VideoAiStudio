@@ -31,6 +31,8 @@ services:
         arguments:
             $paymentRequestStateMachine: '@state_machine.sylius_payment_request'
             $paymentStateMachine: '@state_machine.sylius_payment'
+            $orderCheckoutStateMachine: '@state_machine.sylius_order_checkout'
+            $orderStateMachine: '@state_machine.sylius_order'
 
     # Video Provider - only this needs explicit configuration
     App\IA\Provider\VideoGenerationProviderInterface: '@App\IA\Provider\MockProvider'

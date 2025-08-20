@@ -9,6 +9,8 @@ use App\Wallet\Payment\Command\PayWalletCommand;
 use Doctrine\ORM\EntityManagerInterface;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\PaymentInterface;
+use Sylius\Component\Core\OrderCheckoutTransitions;
+use Sylius\Component\Order\OrderTransitions;
 use Sylius\Component\Payment\Model\PaymentInterface as BasePaymentInterface;
 use Sylius\Component\Payment\Model\PaymentRequestInterface;
 use Sylius\Component\Payment\PaymentRequestTransitions;
@@ -26,6 +28,8 @@ final readonly class PayWalletCommandHandler
         private EntityManagerInterface $entityManager,
         private WorkflowInterface $paymentRequestStateMachine,
         private WorkflowInterface $paymentStateMachine,
+        private WorkflowInterface $orderCheckoutStateMachine,
+        private WorkflowInterface $orderStateMachine,
     ) {
     }
 
@@ -43,9 +47,8 @@ final readonly class PayWalletCommandHandler
             throw new \InvalidArgumentException('Payment not found');
         }
 
-        // Vérifier si le paiement est déjà complété
         if ($payment->getState() === BasePaymentInterface::STATE_COMPLETED) {
-            return; // Déjà traité, ne rien faire
+            return;
         }
 
         $order = $payment->getOrder();
@@ -65,12 +68,10 @@ final readonly class PayWalletCommandHandler
             throw new \InvalidArgumentException('Payment amount cannot be null');
         }
 
-        // D'abord passer le payment de 'cart' à 'new'
         if ($this->paymentStateMachine->can($payment, PaymentTransitions::TRANSITION_CREATE)) {
             $this->paymentStateMachine->apply($payment, PaymentTransitions::TRANSITION_CREATE);
         }
 
-        // Puis selon le résultat métier
         if (!$wallet->canAfford($amount)) {
             // CAS D'ÉCHEC - Fonds insuffisants
             $payment->setDetails(['error' => 'Insufficient funds']);
@@ -82,6 +83,13 @@ final readonly class PayWalletCommandHandler
             // Marquer la request comme failed
             if ($this->paymentRequestStateMachine->can($paymentRequest, PaymentRequestTransitions::TRANSITION_FAIL)) {
                 $this->paymentRequestStateMachine->apply($paymentRequest, PaymentRequestTransitions::TRANSITION_FAIL);
+            }
+
+            // En cas d'échec, on ne complète pas le checkout
+            // On peut optionnellement annuler la commande si elle n'est plus en cart
+
+            if ($this->orderStateMachine->can($order, OrderTransitions::TRANSITION_CANCEL)) {
+                $this->orderStateMachine->apply($order, OrderTransitions::TRANSITION_CANCEL);
             }
         } else {
             // CAS DE SUCCÈS - Débiter le wallet
@@ -97,6 +105,32 @@ final readonly class PayWalletCommandHandler
             if ($this->paymentRequestStateMachine->can($paymentRequest, PaymentRequestTransitions::TRANSITION_COMPLETE)) {
                 $this->paymentRequestStateMachine->apply($paymentRequest, PaymentRequestTransitions::TRANSITION_COMPLETE);
             }
+
+            // Compléter le checkout de la commande pour déclencher la soumission de la vidéo
+            $this->completeCheckoutSteps($order);
+        }
+    }
+
+    private function completeCheckoutSteps(OrderInterface $order): void
+    {
+        // 1. Address (cart -> addressed)
+        if ($this->orderCheckoutStateMachine->can($order, OrderCheckoutTransitions::TRANSITION_ADDRESS)) {
+            $this->orderCheckoutStateMachine->apply($order, OrderCheckoutTransitions::TRANSITION_ADDRESS);
+        }
+
+        // 2. Skip shipping (addressed -> shipping_skipped) - produit digital
+        if ($this->orderCheckoutStateMachine->can($order, OrderCheckoutTransitions::TRANSITION_SKIP_SHIPPING)) {
+            $this->orderCheckoutStateMachine->apply($order, OrderCheckoutTransitions::TRANSITION_SKIP_SHIPPING);
+        }
+
+        // 3. Skip payment (shipping_skipped -> payment_skipped) - déjà payé par wallet
+        if ($this->orderCheckoutStateMachine->can($order, OrderCheckoutTransitions::TRANSITION_SKIP_PAYMENT)) {
+            $this->orderCheckoutStateMachine->apply($order, OrderCheckoutTransitions::TRANSITION_SKIP_PAYMENT);
+        }
+
+        // 4. Complete (payment_skipped -> completed)
+        if ($this->orderCheckoutStateMachine->can($order, OrderCheckoutTransitions::TRANSITION_COMPLETE)) {
+            $this->orderCheckoutStateMachine->apply($order, OrderCheckoutTransitions::TRANSITION_COMPLETE);
         }
     }
 }

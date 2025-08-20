@@ -6,13 +6,13 @@ namespace App\Video\EventListener;
 
 use App\Video\Service\VideoWorkflowManager;
 use App\Video\VideoGenerationTransitions;
-use Sylius\Bundle\ResourceBundle\Event\ResourceControllerEvent;
 use Sylius\Component\Core\Model\OrderInterface;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
+use Symfony\Component\Workflow\Event\CompletedEvent;
 use Symfony\Component\Workflow\WorkflowInterface;
 
-#[AsEventListener(event: 'sylius.order.post_complete', method: 'onOrderComplete')]
+#[AsEventListener(event: 'workflow.sylius_order_checkout.completed.complete', method: 'onOrderComplete')]
 final readonly class VideoGenerationOrderCompleteListener
 {
     public function __construct(
@@ -22,7 +22,7 @@ final readonly class VideoGenerationOrderCompleteListener
     ) {
     }
 
-    public function onOrderComplete(ResourceControllerEvent $event): void
+    public function onOrderComplete(CompletedEvent $event): void
     {
         $order = $event->getSubject();
 
