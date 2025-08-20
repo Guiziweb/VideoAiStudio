@@ -49,7 +49,11 @@ clean: ## Supprime les conteneurs et volumes Docker
 # Composite commands
 init: install backend frontend ## Installation complète du projet
 
-static: install phpstan ecs ## Analyse statique complète
+lint:
+	bin/console lint:twig templates/
+	bin/console lint:yaml config/
+
+static: install lint phpstan ecs ## Analyse statique complète
 
 ci: init static phpunit ## Pipeline CI complète
 

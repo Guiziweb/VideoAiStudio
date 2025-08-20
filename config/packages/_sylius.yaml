@@ -6,7 +6,6 @@ imports:
     - { resource: "@SyliusApiBundle/Resources/config/app/config.yaml" }
 
     - { resource: "../parameters.yaml" }
-    - { resource: "../grids/*.yaml" }
    
    
     # Configuration fixtures dans l'ordre de dépendance
